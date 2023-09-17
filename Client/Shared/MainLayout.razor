@@ -2,32 +2,33 @@
 @inject   NavigationManager NavigationManager
 @inject IAuthService authService
 <div class="page">
-    <AuthorizeView>
-        <Authorized>
-            <div class="sidebar">
-                <NavMenu />
-            </div>
-        </Authorized>
-    </AuthorizeView>
+    @* <AuthorizeView> *@
+    @*     <Authorized> *@
+            @* <div class="sidebar"> *@
+            @*     <NavMenu /> *@
+            @* </div> *@
+    @*     </Authorized> *@
+    @* </AuthorizeView> *@
 
 
     <main>
-        <AuthorizeView>
-            <Authorized>
-                <div class="top-row px-4">
-                    <button class="btn btn-info" @onclick="LogOut">Sign out</button>
-                </div>
-            </Authorized>
-        @*     <NotAuthorized>
-                <div class="top-row px-4">
-                    <a href="https://docs.microsoft.com/aspnet/" target="_blank">Sign in</a>
-                </div>
-            </NotAuthorized> *@
-        </AuthorizeView>
+        @* <AuthorizeView> *@
+        @*     <Authorized> *@
+        @*         <div class="top-row px-4"> *@
+        @*             <button class="btn btn-info" @onclick="LogOut">Sign out</button> *@
+        @*         </div> *@
+        @*     </Authorized> *@
+        @* @*     <NotAuthorized> *@
+        @*         <div class="top-row px-4"> *@
+        @*             <a href="https://docs.microsoft.com/aspnet/" target="_blank">Sign in</a> *@
+        @*         </div> *@
+        @*     </NotAuthorized> *@ 
+        @* </AuthorizeView> *@
        
 
         <article class="content px-4">
             @Body
+            <Footer />
         </article>
     </main>
 </div>

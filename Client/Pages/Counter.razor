@@ -9,7 +9,7 @@
 @inject IAreaService AreaService
 @* @attribute [Authorize(Roles = "Admin, 0")] *@
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <EditForm Model="NewRestrictedArea" OnSubmit="Save">
+    <EditForm Model="_restrictedArea" OnSubmit="Save">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
@@ -34,16 +34,15 @@
                                                         Name of Restricted Area
                                                     </th>
                                                     <td>
-                                                        <input @bind="NewRestrictedArea.Name" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                        <input @bind="_restrictedArea.Name" type="text" class="form-control" placeholder="Area Name" aria-label="Username" aria-describedby="basic-addon1">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">
-                                                        Last legal
-                                                        name
+                                                        Speed Limit
                                                     </th>
                                                     <td>
-                                                        <input @bind="NewRestrictedArea.SpeedLimit" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                        <input @bind="_restrictedArea.SpeedLimit" type="text" class="form-control" placeholder="Speed Limit" aria-label="Username" aria-describedby="basic-addon1">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -51,7 +50,7 @@
                                                         Area Type
                                                     </th>
                                                     <td>
-                                                        <InputSelect type="text" @bind-Value="NewRestrictedArea.Classification" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                        <InputSelect type="text" @bind-Value="_restrictedArea.Classification" class="form-control" placeholder="Classification" aria-label="Username" aria-describedby="basic-addon1">
                                                             
                                                             @foreach (var item in Enum.GetValues(typeof(Classification)))
                                                             {
@@ -199,7 +198,7 @@
         }
         @if (_restrictedArea.Perimeter.Count > 2)
         {
-            <button class="btn  btn-outline-success col-12 " data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Assign RestrictedArea Area </button>
+            <button class="btn btn-outline-success col-12 " data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Assign Restricted Area </button>
 
         }
 
@@ -270,7 +269,7 @@
         StateHasChanged();
     }
 
-    public RestrictedArea NewRestrictedArea = new();
+    // public RestrictedArea NewRestrictedArea = new();
     // public Landlord newLandLord = new();
     // public TitleDeed newTitleDeed = new();
     // public Purchase newPurchase = new();
@@ -290,8 +289,7 @@
 
     private static double _latitude = -12.796364387850875;
     private static double _longitude = 28.23696449229915;
-
-    // private Root? _root = new();
+    
     private bool _showPointSection;
     private bool _showLineSection;
     private bool _showPolygonSection;

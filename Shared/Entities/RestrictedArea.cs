@@ -22,12 +22,11 @@ public class RestrictedArea : BaseEntity
      public string HtmlString()
      {
          return $"""
-             <b>Landlord:</b> {Name}<br>
-             <b>Classification:</b> {Classification}<br>
-             <b>Perimeter:</b> {Perimeter.Count}<br>
-             <b>Id:</b> {Id}<br>
+             <b>Name:</b> {Name}<br>
+             <b>Type:</b> {Classification}<br>
+             <b>Speed Limit:</b> {SpeedLimit}<br>
+            
              <a href='https://www.google.com/maps/search/?api=1&query={Perimeter[0].Latitude},{Perimeter[0].Longitude}'>View on Google Maps</a><br>
-             <h3 >Click the search button that has appeared on top to view the details of this land</h3>
              """;
      }
 

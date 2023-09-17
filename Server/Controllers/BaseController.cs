@@ -40,10 +40,10 @@ public class BaseController<T> : ControllerBase where T : BaseEntity
     public virtual ActionResult Delete(int Id)
     {
         var t = _context.Set<T>().FirstOrDefault(x=>x.Id==Id);
-        if (t is null) return BadRequest($"No student with {Id}");
+        if (t is null) return BadRequest($"No Area with {Id}");
         _context.Set<T>().Remove(t);
         _context.SaveChanges();
-        return Ok("Student deleted");
+        return Ok("Area deleted");
             
     }
         

@@ -5,15 +5,140 @@
 @inject IAreaService AreaService
 
 
-<PageTitle>Search RestrictedArea</PageTitle>
+<PageTitle>Restricted Areas Overview</PageTitle>
 
-<div class="row">
+@* <div class="wrapper"> *@
+@* 		<div class="main"> *@
+			
 
-<div class="col-12">
-     <div class="row">
-          <div class="col-md-12">
-               <h1>Search for RestrictedArea Details</h1>
-               <form>
+			<main class="content">
+				<div class="container-fluid p-0">
+					<div class="d-flex justify-content-between align-items-center">
+						<h3 class="display-6 mb-3"><span class="text-black-50">Restricted Areas</span> Dashboard</h3>
+						<a href="upgrade-to-pro.html" class="btn btn-primary"><i class="bi bi-plus-lg me-2 mt-1"></i>Add</a>
+					</div>
+
+					<div class="row">
+						<div class="col-xl-2 d-flex">
+							<div class="w-100">
+								<div class="row">
+									<div class="col-xl-12">
+										<div class="row">
+											<div class="col-6 col-xl-12">
+												<div class="card">
+													<div class="card-body">
+														<div class="row">
+															<div class="col mt-0">
+																<h5 class="card-title">Sales</h5>
+															</div>
+
+															<div class="col-auto">
+																<div class="stat text-primary">
+																	<i class="align-middle" data-feather="truck"></i>
+																</div>
+															</div>
+														</div>
+														<h1 class="mt-1 mb-3">2.382</h1>
+														<div class="mb-0">
+															<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+															<span class="text-muted">Since last week</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-6 col-xl-12">
+												<div class="card">
+													<div class="card-body">
+														<div class="row">
+															<div class="col mt-0">
+																<h5 class="card-title">Visitors</h5>
+															</div>
+
+															<div class="col-auto">
+																<div class="stat text-primary">
+																	<i class="align-middle" data-feather="users"></i>
+																</div>
+															</div>
+														</div>
+														<h1 class="mt-1 mb-3">14.212</h1>
+														<div class="mb-0">
+															<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
+															<span class="text-muted">Since last week</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xl-10">
+							<div class="card rounded-4 flex-fill w-100">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Restricted Areas Map</h5>
+								</div>
+								<div class="card-body py-3">
+									<div class="">
+										<MapView Longitude="_longitude" Latitude="_latitude" Zoom="16" @ref="_view" Class="map-view"
+										         OnClick="OnMapClick" EventRateLimitInMilliseconds="500" Style="height: 800px; width: 100%;">
+											<Map>
+												<Basemap>
+													<PortalItem Id="716b600dbbac433faa4bec9220c76b3a"/>
+												</Basemap>
+
+
+												<GraphicsLayer @ref="_graphicsLayer">
+													@if (AreaService.Objects is not null)
+													{
+														@foreach (var map in AreaService.Objects)
+														{
+															<Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes">
+																<Polygon Rings="@(new[] { map.MapPath })"/>
+																<SimpleFillSymbol Color="@(new MapColor(81, 46, 132, 0.8))">
+																	<Outline Color="@(new MapColor(255, 255, 255))" Width="1"/>
+																</SimpleFillSymbol>
+																<PopupTemplate
+																	Title="@map?.Name"
+																	StringContent="@map.HtmlString()">
+																	<ActionButton Image="_content/dymaptic.GeoBlazor.Core.Sample.Shared/images/Measure_Distance16.png"
+																	              Title="See Full details"
+																	              Id="Search these Details"
+																	              CallbackFunction="GoToDetails"/>
+																</PopupTemplate>
+
+
+															</Graphic>
+														}
+													}
+												</GraphicsLayer>
+
+											</Map>
+										</MapView>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+
+			
+	@* 	</div> *@
+	@* </div> *@
+
+
+
+
+
+@* <div class="row"> *@
+
+@* <div class="col-12"> *@
+@*      <div class="row"> *@
+@*           <div class="col-md-12"> *@
+@*                <h1></h1> *@
+               @* <form> *@
 @*                     <div class="form-group">
                          <label for="coordinates">RestrictedArea
                               coordinates(Click on the map to check the details of the restrictedArea)</label>
@@ -24,60 +149,26 @@
                          </div>
                     </div> *@
                     <!-- Add more filters as needed -->
-                    @if(land is not null)
-                    {
-                    <button type="button" class="btn btn-outline-success col-12 my-1" @onclick="GoToDetails">Search</button>
+               @*      @if(land is not null) *@
+               @*      { *@
+               @*      <button type="button" class="btn btn-outline-success col-12 my-1" @onclick="GoToDetails">Search</button> *@
+               @* *@
+               @*      } *@
+               @* </form> *@
 
-                    }
-               </form>
-
-          </div>
-     </div>
-
-</div>
-<div class="col-12">
-     <div class="col-12">
-          <MapView Longitude="_longitude" Latitude="_latitude" Zoom="16" @ref="_view" Class="map-view"
-                   OnClick="OnMapClick" EventRateLimitInMilliseconds="500" Style="height: 800px; width: 100%;">
-               <Map>
-                    <Basemap>
-                         <PortalItem Id="716b600dbbac433faa4bec9220c76b3a"/>
-                    </Basemap>
-
-
-                    <GraphicsLayer @ref="_graphicsLayer">
-                         @if (AreaService.Objects is not null)
-                         {
-                            @foreach (var map in AreaService.Objects)
-                              {
-                                   <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes">
-                                    <Polygon Rings="@(new[] { map.MapPath })" />
-                                        <SimpleFillSymbol Color="@(new MapColor(81, 46, 132, 0.8))">
-                                             <Outline Color="@(new MapColor(255, 255, 255))" Width="1"/>
-                                        </SimpleFillSymbol>
-                                     <PopupTemplate 
-                                        Title="@map?.Name"
-                                        StringContent="@map.HtmlString()">
-                                        <ActionButton Image="_content/dymaptic.GeoBlazor.Core.Sample.Shared/images/Measure_Distance16.png"
-                                                      Title="See Full details"
-                                                      Id="Search these Details"
-                                                      CallbackFunction="GoToDetails" />
-                                    </PopupTemplate>
-                                   
- 
-                                </Graphic>
-                              }
-                         }
-                    </GraphicsLayer>
-
-               </Map>
-          </MapView>
-
-     </div>
-
-
-    </div>
-</div>
+@*           </div> *@
+@*      </div> *@
+@* *@
+@* </div> *@
+@* <div class="col-12"> *@
+@*      <div class="col-12"> *@
+@*            *@
+@* *@
+@*      </div> *@
+@* *@
+@* *@
+@*     </div> *@
+@* </div> *@
 
 @code {
     // protected override async Task OnAfterRenderAsync(bool firstRender)
