@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\VehicleSpeedControlSystem.Client.props" />
+</Project>

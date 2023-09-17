@@ -1,0 +1,65 @@
+﻿@* @page "/notifications" *@
+@* $1$ @inject IDisputeService DisputeService #1# *@
+@* $1$ @attribute [Authorize(Roles = "Admin, 0")] #1# *@
+@* *@
+@* <h3>Disputes Requests</h3> *@
+@* <table class="table"> *@
+@*     <thead> *@
+@*         <tr> *@
+@*             <th scope="col">RestrictedArea Id</th> *@
+@*             <th scope="col">Reporter Email</th> *@
+@*             <th scope="col">Description</th> *@
+@*             <th scope="col">Date</th> *@
+@*             <th scope="col">IsResolved</th> *@
+@*             <th scope="col">Actions</th> *@
+@*         </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*          *@
+@*         @if (DisputeService.Objects is null || DisputeService.Objects.Count == 0) *@
+@*         { *@
+@*             <tr> *@
+@*                 <td colspan="6">No Disputes</td> *@
+@*             </tr> *@
+@*         } *@
+@*         else *@
+@*         { *@
+@*         @foreach(var dispute in DisputeService.Objects) *@
+@*         { *@
+@*             <tr> *@
+@*                 <th scope="row">@dispute.LandId</th> *@
+@*                 <td>@dispute.Email</td> *@
+@*                 <td>@dispute.Description</td> *@
+@*                 <td>@dispute.Date</td> *@
+@*                 <td>@dispute.IsResolved</td> *@
+@*                  <td> *@
+@*                     <button class="btn btn-primary" @onclick="()=>Resolve(dispute)">Resolved</button> *@
+@*                     <button class="btn btn-danger" @onclick="()=>Delete(dispute)">Delete</button> *@
+@*                 </td> *@
+@*             </tr> *@
+@*         } *@
+@*     } *@
+@*     </tbody> *@
+@* </table> *@
+@* @code { *@
+@*     protected override async void OnInitialized() *@
+@*     { *@
+@*         await DisputeService.Get(); *@
+@*         StateHasChanged (); *@
+@*     } *@
+@* *@
+@*     async Task Resolve(Dispute dispute) *@
+@*     { *@
+@*         dispute.IsResolved = true; *@
+@*         await DisputeService.Update(dispute); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@* *@
+@*     async Task Delete(Dispute dispute) *@
+@*     { *@
+@*         await DisputeService.Delete(dispute.Id); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@* *@
+@* *@
+@* } *@

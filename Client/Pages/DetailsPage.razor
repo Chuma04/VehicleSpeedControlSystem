@@ -1,0 +1,226 @@
+﻿@* @page "/details/{id:int}" *@
+@* @page "/LandDetails/{id:int}" *@
+@* @inject IDisputeService DisputeService *@
+@* @inject IAreaService AreaService *@
+@* *@
+@* <h3>RestrictedArea Page</h3> *@
+@* *@
+@* <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> *@
+@*     <div class="modal-dialog"> *@
+@*         <div class="modal-content"> *@
+@*             <div class="modal-header"> *@
+@*                 <h1 class="modal-title fs-5" id="exampleModalLabel">Report Issue - Please make sure to select the restrictedArea</h1> *@
+@*        @*          @if (restrictedArea is null) *@
+@*                 { *@
+@*                     <p class="text-danger">Please select the restrictedArea in qwestion </p> *@
+@*                 } *@ 
+@*                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+@*             </div> *@
+@*             <div class="modal-body"> *@
+@*                 <form> *@
+@*                     <div class="mb-3"> *@
+@*                         <label for="recipient-name" class="col-form-label">Your Email:</label> *@
+@*                         <input @bind="dispute.Email" type="text" class="form-control" id="recipient-name"> *@
+@*                     </div> *@
+@*                     <div class="mb-3"> *@
+@*                         <label for="message-text" class="col-form-label">Message:</label> *@
+@*                         <textarea @bind="dispute.Description" class="form-control" id="message-text"></textarea> *@
+@*                     </div> *@
+@*                 </form> *@
+@*             </div> *@
+@*             <div class="modal-footer"> *@
+@*                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+@*                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @onclick="Send">Send message</button> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+@* *@
+@*     <div> *@
+@*             <div class="modal-content"> *@
+@*                 <div class="modal-header"> *@
+@*                     <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Fill in this form </h1> *@
+@*                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+@*                 </div> *@
+@*                 <div class="modal-body"> *@
+@* *@
+@*                     <div class="row"> *@
+@* *@
+@*                         <div class="col-lg-12 col-md-12 "> *@
+@* *@
+@*                             <div class="row"> *@
+@* *@
+@*                                 <div class="col-lg-6 row"> *@
+@*                                     <div class="col-md-12"> *@
+@*                                         <h2>Personal Information</h2> *@
+@*                                         <table class="table table-striped"> *@
+@*                                             <tbody> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row"> *@
+@*                                                         First legal *@
+@*                                                         name *@
+@*                                                     </th> *@
+@*                                                     <td> *@
+@*                                                         <input disabled @bind="restrictedArea.RestrictedArealord.FirstName" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row"> *@
+@*                                                         Last legal *@
+@*                                                         name *@
+@*                                                     </th> *@
+@*                                                     <td> *@
+@*                                                         <input disabled @bind="restrictedArea.RestrictedArealord.LastName" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row"> *@
+@*                                                         Phone *@
+@*                                                         name *@
+@*                                                     </th> *@
+@*                                                     <td> *@
+@*                                                         <input disabled type="text" @bind="_restrictedArea.RestrictedArealord.Phone" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@* *@
+@*                                             </tbody> *@
+@*                                         </table> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@* *@
+@* *@
+@* *@
+@*                                 <div class="col-lg-6 row"> *@
+@*                                     <div class="col-md-12"> *@
+@*                                         <h2>Purchase Information</h2> *@
+@*                                         <table class="table table-striped"> *@
+@*                                             <tbody> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row"> *@
+@*                                                         Date of *@
+@*                                                         purchase *@
+@*                                                     </th> *@
+@*                                                     <td> *@
+@*                                                         <input disabled type="date" @bind="_restrictedArea.Purchase.Date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@* *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row"> *@
+@*                                                         Purchase price *@
+@*                                                         or valuation of the restrictedArea *@
+@*                                                     </th> *@
+@*                                                     <td> *@
+@*                                                         <input type="number" @bind="_restrictedArea.Purchase.Price" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@* *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@* *@
+@*                                             </tbody> *@
+@*                                         </table> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                                 <div class="col-lg-6 row"> *@
+@*                                     <div class="col-md-12"> *@
+@*                                         <h2>Title and Deed</h2> *@
+@*                                         <table class="table table-striped"> *@
+@*                                             <tbody> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row"> *@
+@*                                                         Title number *@
+@*                                                         or reference *@
+@*                                                     </th> *@
+@*                                                     <td> *@
+@*                                                         <input type="number" @bind="_restrictedArea.TitleDeed.Number" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@* *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row">Date</th> *@
+@*                                                     <td> *@
+@*                                                         <input disabled type="text" @bind="_restrictedArea.TitleDeed.Date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@* *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row">Location</th> *@
+@*                                                     <td> *@
+@*                                                         <input disabled type="text" @bind="_restrictedArea.TitleDeed.Location" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@* *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@*                                                 <tr> *@
+@*                                                     <th scope="row">Type</th> *@
+@*                                                     <td> *@
+@*                                                         <input disabled type="text" @bind="_restrictedArea.TitleDeed.Type" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@* *@
+@*                                                     </td> *@
+@*                                                 </tr> *@
+@*                                             </tbody> *@
+@*                                         </table> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@* *@
+@*                             </div> *@
+@* *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@*                 <table class="table table-striped"> *@
+@*                     <th> *@
+@*                     <td> *@
+@*                         longitude *@
+@*                     </td> *@
+@*                     <td> *@
+@*                         latitude *@
+@*                     </td> *@
+@*                     </th> *@
+@*                     <tbody> *@
+@*                         @foreach (var coordinate in _restrictedArea.Perimeter) *@
+@*                         { *@
+@*                             <tr> *@
+@*                                 <td> *@
+@*                                     <input type="text" @bind="coordinate.Longitude" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*                                 </td> *@
+@*                                 <td> *@
+@*                                     <input type="text" @bind="coordinate.Latitude" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*                                 </td> *@
+@*                             </tr> *@
+@*                         } *@
+@*                     </tbody> *@
+@*                 </table> *@
+@* *@
+@*                 <div class="modal-footer"> *@
+@*             <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Report an Issue</button> *@
+@*                 </div> *@
+@*             </div> *@
+@*     </div> *@
+@* *@
+@* *@
+@* @code { *@
+@*     RestrictedArea _restrictedArea = new(); *@
+@*     Dispute dispute = new(); *@
+@*     [Parameter] *@
+@*     public int id { get; set; } *@
+@*     async Task Send() *@
+@*     { *@
+@*         if (_restrictedArea != null) *@
+@*             dispute.LandId = _restrictedArea.Id; *@
+@*         await DisputeService.Create(dispute); *@
+@*         _restrictedArea = null; *@
+@*         dispute = new(); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@* *@
+@*     protected override async void OnParametersSet() *@
+@*     { *@
+@*         Console.WriteLine($"RestrictedArea id {id}"); *@
+@*         await AreaService.Get(true); *@
+@*         if (id != 0) *@
+@*         { *@
+@*             _restrictedArea = AreaService.Objects.First(land=>land.Id == id); *@
+@*             Console.WriteLine($"RestrictedArea deatils : {_restrictedArea.HtmlString}"); *@
+@*             StateHasChanged(); *@
+@*         } *@
+@*     } *@
+@* } *@

@@ -1,0 +1,740 @@
+﻿@* *@
+@* *@
+@* @page "/counter" *@
+@* *@
+@* *@
+@* *@
+@* @inject NavigationManager NavigationManager *@
+@* *@
+@* *@
+@* *@
+@* <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1"> *@
+@*      <EditForm Model="NewRestrictedArea" OnSubmit="ReserveRestrictedArea"> *@
+@*        <div class="modal-dialog modal-fullscreen"> *@
+@*               <div class="modal-content"> *@
+@*                 <div class="modal-header"> *@
+@*                   <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Fill in this form </h1> *@
+@*                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+@*                 </div> *@
+@*               <div class="modal-body"> *@
+@*                    *@
+@*               <div class="row"> *@
+@*              *@
+@*               <div class="col-lg-12 col-md-12 "> *@
+@*                 *@
+@*               <div class="row"> *@
+@*             *@
+@*               <div class="col-lg-6 row"> *@
+@*                   <div class="col-md-12"> *@
+@*                       <h2>Personal Information</h2> *@
+@*                       <table class="table table-striped"> *@
+@*                           <tbody> *@
+@*                           <tr> *@
+@*                               <th scope="row">Full legal *@
+@*                                   name</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Phone *@
+@*                                   name</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Date of birth</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Citizenship</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           </tbody> *@
+@*                       </table> *@
+@*                   </div> *@
+@*               </div> *@
+@*               <div class="col-lg-6 row"> *@
+@*                   <div class="col-md-12"> *@
+@*                       <h2>Identification Documents</h2> *@
+@*                       <table class="table table-striped"> *@
+@*                           <tbody> *@
+@*                           <tr> *@
+@*                               <th scope="row">Social *@
+@*                                   Security number</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">NRC/Passport or *@
+@*                                   driver's license number</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Tax *@
+@*                                   identification number</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           </tbody> *@
+@*                       </table> *@
+@*                   </div> *@
+@*               </div> *@
+@*            *@
+@*               <!-- Repeat the same structure for the other sections --> *@
+@*               <div class="col-lg-6 row"> *@
+@*                   <div class="col-md-12"> *@
+@*                       <h2>RestrictedArea Information</h2> *@
+@*                       <table class="table table-striped"> *@
+@*                           <tbody> *@
+@*                           <tr> *@
+@*                               <th scope="row">Legal *@
+@*                                   description of the restrictedArea</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Address or *@
+@*                                   geolocation coordinates *@
+@*                                   of the restrictedArea</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Total restrictedArea *@
+@*                                   area</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Zoning *@
+@*                                   classification</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Any easements *@
+@*                                   or encumbrances on the *@
+@*                                   restrictedArea</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           </tbody> *@
+@*                       </table> *@
+@*                   </div> *@
+@*               </div> *@
+@*            *@
+@*               <div class="col-lg-6 row"> *@
+@*                   <div class="col-md-12"> *@
+@*                       <h2>Purchase Information</h2> *@
+@*                       <table class="table table-striped"> *@
+@*                           <tbody> *@
+@*                           <tr> *@
+@*                               <th scope="row">Date of *@
+@*                                   purchase</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Purchase price *@
+@*                                   or valuation of the restrictedArea</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Financing *@
+@*                                   details</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Name and *@
+@*                                   contact information of *@
+@*                                   the seller</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Details of any *@
+@*                                   real estate agents or *@
+@*                                   brokers involved</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           </tbody> *@
+@*                       </table> *@
+@*                   </div> *@
+@*               </div> *@
+@*               <div class="col-lg-6 row"> *@
+@*                   <div class="col-md-12"> *@
+@*                       <h2>Title and Deed</h2> *@
+@*                       <table class="table table-striped"> *@
+@*                           <tbody> *@
+@*                           <tr> *@
+@*                               <th scope="row">Title number *@
+@*                                   or reference</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Deed or *@
+@*                                   conveyance document *@
+@*                                   details</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Any liens, *@
+@*                                   mortgages, or other *@
+@*                                   claims on the property</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           </tbody> *@
+@*                       </table> *@
+@*                   </div> *@
+@*               </div> *@
+@*            *@
+@*               <div class="col-lg-6 row"> *@
+@*                   <div class="col-md-12"> *@
+@*                       <h2>Property Taxes</h2> *@
+@*                       <table class="table table-striped"> *@
+@*                           <tbody> *@
+@*                           <tr> *@
+@*                               <th scope="row">Tax assessment *@
+@*                                   details</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Tax payment *@
+@*                                   history</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           <tr> *@
+@*                               <th scope="row">Current tax *@
+@*                                   status</th> *@
+@*                               <td> *@
+@*                                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*            *@
+@*                               </td> *@
+@*                           </tr> *@
+@*                           </tbody> *@
+@*                       </table> *@
+@*                   </div> *@
+@*               </div> *@
+@*               </div> *@
+@*            *@
+@*               </div> *@
+@*               </div> *@
+@*               </div> *@
+@*               <table class="table table-striped"> *@
+@*               <th> *@
+@*                   <td> *@
+@*                       longitude *@
+@*                   </td> *@
+@*                   <td> *@
+@*                       latitude *@
+@*                   </td> *@
+@*               </th> *@
+@*               <tbody> *@
+@*               @foreach (var coordinate in mapPoints) *@
+@*               { *@
+@*                   <tr> *@
+@*                       <td> *@
+@*                           <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*                       </td> *@
+@*                       <td> *@
+@*                           <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+@*                       </td> *@
+@*                   </tr> *@
+@*               } *@
+@*                *@
+@*               </tbody> *@
+@*               </table> *@
+@*                *@
+@*                 <div class="modal-footer"> *@
+@*                   <button type="submit" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Save</button> *@
+@*                 </div> *@
+@*               </div> *@
+@*             </div> *@
+@*      </EditForm> *@
+@* </div> *@
+@* <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1"> *@
+@*   <div class="modal-dialog modal-dialog-centered"> *@
+@*     <div class="modal-content"> *@
+@*       <div class="modal-header"> *@
+@*         <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1> *@
+@*         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+@*       </div> *@
+@*       <div class="modal-body"> *@
+@*         Hide this modal and show the first with the button below. *@
+@*       </div> *@
+@*       <div class="modal-footer"> *@
+@*         <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@* </div> *@
+@* *@
+@* <PageTitle>Events</PageTitle> *@
+@* @foreach (var mapPointx in mapPoints) *@
+@* { *@
+@*     <div class="input-group"> *@
+@*         <span class="input-group-text">Lat and last Long</span> *@
+@*         <input type="text" aria-label="First name" class="form-control" disabled @bind="@mapPointx.Latitude"> *@
+@*         <input type="text" aria-label="Last name" class="form-control" disabled @bind="@mapPointx.Longitude"> *@
+@*         <button class="btn  btn-outline-danger " @onclick="()=>Delete(mapPointx)">Delete</button> *@
+@*          *@
+@*     </div> *@
+@* *@
+@* } *@
+@*   <button class="btn  btn-outline-success col-12 my-2 " data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Assign Area to User</button> *@
+@* *@
+@* <div class="input-group mt-4"> *@
+@*         <span class="input-group-text">Lat and last Long</span> *@
+@*         <input type="text" aria-label="First name" class="form-control"  @bind="@newCoordinated.Latitude"> *@
+@*         <input type="text" aria-label="Last name" class="form-control"  @bind="@newCoordinated.Longitude"> *@
+@*   <button class="btn  btn-outline-success " @onclick="AddToPoints">Submit</button> *@
+@* </div> *@
+@* *@
+@* <div class="row"> *@
+@* <div class="col-12 row"> *@
+@* *@
+@*         <div class="form-group col"> *@
+@*             <label class="react-label"> *@
+@*                 Click: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_clickJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group col"> *@
+@*             <label class="react-label"> *@
+@*                 Double Click: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_doubleClickJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Hold: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_holdJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group col"> *@
+@*             <label class="react-label"> *@
+@*                 Drag: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_dragJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group col"> *@
+@*             <label class="react-label"> *@
+@*                 Blur: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_blurJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Focus: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_focusJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Pointer Down: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_pointerDownJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group col"> *@
+@*             <label class="react-label"> *@
+@*                 Pointer Up: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_pointerUpJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Pointer Enter: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_pointerEnterJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Pointer Leave: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_pointerLeaveJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Pointer Move: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_pointerMoveJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Key Down: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_keyDownJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Key Up: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_keyUpJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Mouse Wheel: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_mouseWheelJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="form-group  col"> *@
+@*             <label class="react-label"> *@
+@*                 Extent: *@
+@*             </label> *@
+@*             <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;"> *@
+@*                 <b>@((MarkupString)(_extentJson ?? ""))</b> *@
+@*             </div> *@
+@*         </div> *@
+@* *@
+@* *@
+@*     </div> *@
+@*     <div class="col-12"> *@
+@*         <MapView Longitude="_longitude" Latitude="_latitude" Zoom="11" @ref="_view" Class="map-view" *@
+@*                  OnClick="OnMapClick" OnDoubleClick="OnMapDoubleClick" *@
+@*                  OnHold="OnMapHold" OnBlur="OnMapBlur" OnFocus="OnMapFocus" OnDrag="OnMapDrag" *@
+@*                  OnPointerDown="OnMapPointerDown" OnPointerUp="OnMapPointerUp" OnPointerEnter="OnMapPointerEnter" *@
+@*                  OnPointerLeave="OnMapPointerLeave" OnPointerMove="OnMapPointerMove" OnExtentChanged="OnMapExtentChanged" *@
+@*                  OnKeyDown="OnMapKeyDown" OnKeyUp="OnMapKeyUp" OnMouseWheel="OnMapMouseWheel" *@
+@*                  EventRateLimitInMilliseconds="500" Style="height: 800px; width: 100%;"> *@
+@*             <Map> *@
+@*                 <Basemap> *@
+@*                     <PortalItem Id="716b600dbbac433faa4bec9220c76b3a"/> *@
+@*                 </Basemap> *@
+@* *@
+@*                 <GraphicsLayer @ref="_graphicsLayer"> *@
+@*                     @foreach (var mapPath in maps) *@
+@*                     { *@
+@*                         <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes"> *@
+@*                             <Polygon Rings="@(new[] { mapPath })"/> *@
+@*                             <SimpleFillSymbol Color="@(new MapColor(81, 46, 132, 0.8))"> *@
+@*                                 <Outline Color="@(new MapColor(255, 255, 255))" Width="1"/> *@
+@*                             </SimpleFillSymbol> *@
+@*                             <PopupTemplate Title="{Name}" StringContent="{Description}"/> *@
+@*                         </Graphic> *@
+@*                     } *@
+@*                      *@
+@*                     <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes"> *@
+@*                         <Polygon Rings="@(new[] { newMapPath })"/> *@
+@*                         <SimpleFillSymbol Color="@(new MapColor(0, 200, 100, 0.8))"> *@
+@*                             <Outline Color="@(new MapColor(255, 255, 255))" Width="1"/> *@
+@*                         </SimpleFillSymbol> *@
+@*                         <PopupTemplate Title="{Name}" StringContent="{Description}"/> *@
+@*                     </Graphic> *@
+@* *@
+@*                 </GraphicsLayer> *@
+@*                  *@
+@*             </Map> *@
+@*         </MapView> *@
+@* *@
+@*     </div> *@
+@* </div> *@
+@* *@
+@* *@
+@* @code { *@
+@*     public RestrictedArea NewRestrictedArea = new(); *@
+@*     public Task ReserveRestrictedArea() *@
+@*     { *@
+@*         Console.WriteLine("Hello"); *@
+@*         return Task.CompletedTask; *@
+@*     } *@
+@*     bool show = false; *@
+@*     private async Task GetPolygon() *@
+@*     { *@
+@*         if (_polygonGraphic is null) return; *@
+@* *@
+@*         Geometry? geometry = await _polygonGraphic.GetGeometry(); *@
+@*         _geometry = JsonSerializer.Serialize(geometry); *@
+@*     } *@
+@*     private readonly Dictionary<string, object> _graphicAttributes = new() *@
+@*     { *@
+@*         { "Name", "Sample Polygon" }, *@
+@*         { "Description", "This is where you can describe the polygon." } *@
+@*     }; *@
+@*      *@
+@*     private static double _latitude =-12.80243; *@
+@*     private static double _longitude =28.21323; *@
+@*      *@
+@*     private  double _latitude2 = _latitude; *@
+@*     private  double _longitude2 = _longitude; *@
+@*      *@
+@*     // private Root? _root = new(); *@
+@*     private bool _showPointSection; *@
+@*     private bool _showLineSection; *@
+@*     private bool _showPolygonSection; *@
+@*     private GraphicsLayer? _graphicsLayer; *@
+@*     private Graphic? _polygonGraphic; *@
+@*     private Graphic? _pointGraphic; *@
+@*     private Graphic? _polylineGraphic; *@
+@*     private string? _geometry; *@
+@*     Point mapPoint = new Point(-118.805, 34.027); *@
+@*     private readonly MapPath _mapRings = new(new MapPoint(-118.818984489994, 34.0137559967283), *@
+@*         new MapPoint(-118.806796597377, 34.0215816298725), *@
+@*         new MapPoint(-118.791432890735, 34.0163883241613), *@
+@*         new MapPoint(-118.79596686535, 34.008564864635), *@
+@*         new MapPoint(-118.808558110679, 34.0035027131376)); *@
+@* *@
+@* *@
+@*     private MapPath _mapRings2 = new(); *@
+@* *@
+@*     private readonly MapPath _mapRings3 = new( *@
+@*         new MapPoint(_longitude,_latitude), *@
+@*         new MapPoint(_longitude + 0.05, _latitude), *@
+@*         new MapPoint(_longitude + 0.05, _latitude+0.5), *@
+@*         new MapPoint(_longitude , _latitude + 0.05)); *@
+@*     private async Task OnMapClick(ClickEvent clickEvent) *@
+@*     { *@
+@*         _clickJson = BuildViewableJson(clickEvent); *@
+@*         ScreenPoint screenPoint = await _view!.ToScreen(clickEvent.MapPoint); *@
+@*         _clickJson += $", ScreenPoint: {screenPoint.X}, {screenPoint.Y}"; *@
+@*         mapPoint = await _view.ToMap(screenPoint); *@
+@*         _clickJson += $", MapPoint: {mapPoint.X}, {mapPoint.Y}"; *@
+@*         _latitude2 = (double)mapPoint.Latitude; *@
+@*         _longitude2 = (double)mapPoint.Longitude; *@
+@*         Console.WriteLine($"latitude: {mapPoint.Latitude}, longitude: {mapPoint.Longitude}"); *@
+@*         // _mapRings2 = new ( *@
+@*         //     new MapPoint(_longitude2, _latitude2), *@
+@*         //     new MapPoint(_longitude2 + 0.01, _latitude2), *@
+@*         //     new MapPoint(_longitude2 + 0.01, _latitude2 + 0.01), *@
+@*         //     new MapPoint(_longitude2, _latitude2 + 0.01)); *@
+@*         // show = true; *@
+@*          *@
+@*         newCoordinated.Latitude = (double)mapPoint.Latitude; *@
+@*         newCoordinated.Longitude = (double)mapPoint.Longitude; *@
+@*         AddToPoints(); *@
+@*         StateHasChanged(); *@
+@* *@
+@*     } *@
+@*     MapPath newMapPath = new(); *@
+@*     List<MapPath> maps = new(); *@
+@*     MapPath mapPath = new(); *@
+@*     List<Coordinate> mapPoints = new(); *@
+@*     Coordinate newCoordinated = new(); *@
+@*      *@
+@*     public void AddToPoints() *@
+@*     { *@
+@*         mapPoints.Add(newCoordinated); *@
+@*         newCoordinated = new(); *@
+@*         UpdateMap(); *@
+@*         // mapPaths.Add(new MapPath(newLat, newLong)); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*      *@
+@*     public void ClearMap() *@
+@*     { *@
+@*         // maps.Clear(); *@
+@*         mapPoints.Clear(); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@* *@
+@*     void UpdateMap() *@
+@*     { *@
+@*         if(mapPoints.Count == 0) return; *@
+@*         foreach(var mapPoint in mapPoints) *@
+@*         { *@
+@*             newMapPath.Add(new MapPoint(mapPoint.Longitude, mapPoint.Latitude)); *@
+@*         } *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*     public void CreateMap() *@
+@*     { *@
+@*         foreach (var mapPoint in mapPoints) *@
+@*         { *@
+@*             mapPath.Add(new MapPoint(mapPoint.Longitude, mapPoint.Latitude)); *@
+@*         } *@
+@*         maps.Add(mapPath); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*      *@
+@*     public void Delete(Coordinate mapPoint) *@
+@*     { *@
+@*         mapPoints.Remove(mapPoint); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*     *@
+@*     private void OnMapDoubleClick(ClickEvent clickEvent) *@
+@*     { *@
+@*         _doubleClickJson = BuildViewableJson(clickEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapHold(ClickEvent holdEvent) *@
+@*     { *@
+@*         _holdJson = BuildViewableJson(holdEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapBlur(BlurEvent blurEvent) *@
+@*     { *@
+@*         _blurJson = BuildViewableJson(blurEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapFocus(FocusEvent focusEvent) *@
+@*     { *@
+@*         _focusJson = BuildViewableJson(focusEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapDrag(DragEvent dragEvent) *@
+@*     { *@
+@*         _dragJson = BuildViewableJson(dragEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerEnter(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerEnterJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerLeave(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerLeaveJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerDown(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerDownJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerUp(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerUpJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerMove(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerMoveJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapExtentChanged(Extent extent) *@
+@*     { *@
+@*         _extentJson = BuildViewableJson(extent); *@
+@*     } *@
+@* *@
+@*     private void OnMapKeyDown(KeyDownEvent keyDownEvent) *@
+@*     { *@
+@*         _keyDownJson = BuildViewableJson(keyDownEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapKeyUp(KeyUpEvent keyUpEvent) *@
+@*     { *@
+@*         _keyUpJson = BuildViewableJson(keyUpEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapMouseWheel(MouseWheelEvent mouseWheelEvent) *@
+@*     { *@
+@*         _mouseWheelJson = BuildViewableJson(mouseWheelEvent); *@
+@*     } *@
+@* *@
+@*     private string BuildViewableJson(object eventObject) *@
+@*     { *@
+@*         string json = JsonSerializer.Serialize(eventObject, _options); *@
+@*         return json.Replace(Environment.NewLine, "<br>") *@
+@*             .Replace(" ", "&nbsp;"); *@
+@*     } *@
+@*     // *@
+@* *@
+@*      *@
+@*      *@
+@*      *@
+@*      *@
+@*     private MapView? _view; *@
+@*     private string? _clickJson; *@
+@*     private string? _doubleClickJson; *@
+@*     private string? _holdJson; *@
+@*     private string? _blurJson; *@
+@*     private string? _focusJson; *@
+@*     private string? _dragJson; *@
+@*     private string? _pointerEnterJson; *@
+@*     private string? _pointerLeaveJson; *@
+@*     private string? _pointerDownJson; *@
+@*     private string? _pointerUpJson; *@
+@*     private string? _pointerMoveJson; *@
+@*     private string? _extentJson; *@
+@*     private string? _keyDownJson; *@
+@*     private string? _keyUpJson; *@
+@*     private string? _mouseWheelJson; *@
+@*     private readonly JsonSerializerOptions _options = new() *@
+@*     { *@
+@*         WriteIndented = true, *@
+@*         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull *@
+@*     }; *@
+@*      *@
+@*      *@
+@* } *@

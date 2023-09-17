@@ -1,0 +1,12 @@
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\bin\Debug\net7.0\VehicleSpeedControlSystem.Shared.deps.json
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\bin\Debug\net7.0\VehicleSpeedControlSystem.Shared.dll
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\bin\Debug\net7.0\VehicleSpeedControlSystem.Shared.pdb
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\VehicleSpeedControlSystem.Shared.csproj.AssemblyReference.cache
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\VehicleSpeedControlSystem.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\VehicleSpeedControlSystem.Shared.AssemblyInfoInputs.cache
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\VehicleSpeedControlSystem.Shared.AssemblyInfo.cs
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\VehicleSpeedControlSystem.Shared.csproj.CoreCompileInputs.cache
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\VehicleSpeedControlSystem.Shared.dll
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\refint\VehicleSpeedControlSystem.Shared.dll
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\VehicleSpeedControlSystem.Shared.pdb
+C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Shared\obj\Debug\net7.0\ref\VehicleSpeedControlSystem.Shared.dll

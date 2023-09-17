@@ -1,0 +1,379 @@
+﻿@page "/counter"
+@using VehicleSpeedControlSystem.Shared.Entities
+@using System.Drawing
+@using VehicleSpeedControlSystem.Shared
+@using dymaptic.GeoBlazor.Core.Components.Layers;
+@using dymaptic.GeoBlazor.Core.Events;
+@using dymaptic.GeoBlazor.Core.Objects;
+@inject NavigationManager NavigationManager
+@inject IAreaService AreaService
+@* @attribute [Authorize(Roles = "Admin, 0")] *@
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <EditForm Model="NewRestrictedArea" OnSubmit="Save">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Fill in this form </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 ">
+
+                            <div class="row">
+
+                                <div class="col-lg-6 row">
+                                    <div class="col-md-12">
+                                        <h2>Area Information</h2>
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">
+                                                        Name of Restricted Area
+                                                    </th>
+                                                    <td>
+                                                        <input @bind="NewRestrictedArea.Name" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        Last legal
+                                                        name
+                                                    </th>
+                                                    <td>
+                                                        <input @bind="NewRestrictedArea.SpeedLimit" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        Area Type
+                                                    </th>
+                                                    <td>
+                                                        <InputSelect type="text" @bind-Value="NewRestrictedArea.Classification" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                            
+                                                            @foreach (var item in Enum.GetValues(typeof(Classification)))
+                                                            {
+                                                                <option value="@item">@item</option>
+                                                            }
+                                                        </InputSelect>
+                                                    </td>
+                                                </tr>
+                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+                                @* <div class="col-lg-6 row"> *@
+                                @*     <div class="col-md-12"> *@
+                                @*         <h2>Purchase Information</h2> *@
+                                @*         <table class="table table-striped"> *@
+                                @*             <tbody> *@
+                                @*                 <tr> *@
+                                @*                     <th scope="row"> *@
+                                @*                         Date of *@
+                                @*                         purchase *@
+                                @*                     </th> *@
+                                @*                     <td> *@
+                                @*                         <input type="date" @bind="newPurchase.Date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+                                @* *@
+                                @*                     </td> *@
+                                @*                 </tr> *@
+                                @*                 <tr> *@
+                                @*                     <th scope="row"> *@
+                                @*                         Purchase price *@
+                                @*                         or valuation of the restrictedArea *@
+                                @*                     </th> *@
+                                @*                     <td> *@
+                                @*                         <input type="number" @bind="newPurchase.Price" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+                                @* *@
+                                @*                     </td> *@
+                                @*                 </tr> *@
+                                @* *@
+                                @*             </tbody> *@
+                                @*         </table> *@
+                                @*     </div> *@
+                                @* </div> *@
+                                
+                                @* <div class="col-lg-6 row"> *@
+                                @*     <div class="col-md-12"> *@
+                                @*         <h2>Title and Deed</h2> *@
+                                @*         <table class="table table-striped"> *@
+                                @*             <tbody> *@
+                                @*                 <tr> *@
+                                @*                     <th scope="row"> *@
+                                @*                         Title number *@
+                                @*                         or reference *@
+                                @*                     </th> *@
+                                @*                     <td> *@
+                                @*                        <input type="number" @bind="newTitleDeed.Number" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+                                @* *@
+                                @*                     </td> *@
+                                @*                 </tr> *@
+                                @*                 <tr> *@
+                                @*                     <th scope="row">Date</th> *@
+                                @*                     <td> *@
+                                @*                         <input type="text" @bind="newTitleDeed.Date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+                                @* *@
+                                @*                     </td> *@
+                                @*                 </tr> *@
+                                @*                 <tr> *@
+                                @*                     <th scope="row">Location</th> *@
+                                @*                     <td> *@
+                                @*                         <input type="text" @bind="newTitleDeed.Location" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+                                @* *@
+                                @*                     </td> *@
+                                @*                 </tr> *@
+                                @*                 <tr> *@
+                                @*                     <th scope="row">Type</th> *@
+                                @*                     <td> *@
+                                @*                         <input type="text" @bind="newTitleDeed.Type" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required> *@
+                                @* *@
+                                @*                     </td> *@
+                                @*                 </tr> *@
+                                @*             </tbody> *@
+                                @*         </table> *@
+                                @*     </div> *@
+                                @* </div> *@
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <th>
+                    <td>
+                        longitude
+                    </td>
+                    <td>
+                        latitude
+                    </td>
+                    </th>
+                    <tbody>
+                        @foreach (var coordinate in _restrictedArea.Perimeter)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="text" @bind="coordinate.Longitude" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
+                                </td>
+                                <td>
+                                    <input type="text" @bind="coordinate.Latitude" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+
+<PageTitle>Events</PageTitle>
+
+
+
+
+<div class="row">
+    <div class="col-4">
+
+        @foreach (var mapPointx in _restrictedArea.Perimeter)
+        {
+            <div class="input-group">
+                <span class="input-group-text">Lat-Long</span>
+                <input type="text" aria-label="First name" class="form-control" disabled @bind="@mapPointx.Latitude">
+                <input type="text" aria-label="Last name" class="form-control" disabled @bind="@mapPointx.Longitude">
+                <button class="btn  btn-outline-danger " @onclick="()=>Delete(mapPointx)">Delete</button>
+
+            </div>
+
+        }
+        @if (_restrictedArea.Perimeter.Count > 2)
+        {
+            <button class="btn  btn-outline-success col-12 " data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Assign RestrictedArea Area </button>
+
+        }
+
+    </div>
+    <div class="col-8">
+        <MapView Longitude="_longitude" Latitude="_latitude" Zoom="16" @ref="_view" Class="map-view"
+                 OnClick="OnMapClick"
+                 EventRateLimitInMilliseconds="500" Style="height: 800px; width: 100%;">
+            <Map>
+                <Basemap>
+                    <PortalItem Id="716b600dbbac433faa4bec9220c76b3a" />
+                </Basemap>
+                <GraphicsLayer @ref="_graphicsLayer">
+                    @if (AreaService.Objects is not null)
+                    {
+                        @foreach (var map in AreaService.Objects)
+                        {
+                            <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes">
+                                <Polygon Rings="@(new[] { map.MapPath })" />
+                                <SimpleFillSymbol Color="@(new MapColor(81, 46, 132, 0.8))">
+                                    <Outline Color="@(new MapColor(255, 255, 255))" Width="1" />
+                                </SimpleFillSymbol>
+                                     <PopupTemplate 
+                                                                        Title="@map?.Name"
+                                                                        StringContent="@map.HtmlString()">
+                                                                        <ActionButton Image="_content/dymaptic.GeoBlazor.Core.Sample.Shared/images/Measure_Distance16.png"
+                                                                                      Title="See Full details"
+                                                                                      Id="Search these Details"/>
+                                                                    </PopupTemplate>
+                            </Graphic>
+                        }
+                    }
+                    <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes">
+                        <Polygon Rings="@(new[] { newMapPath() })" />
+                        <SimpleFillSymbol Color="@(new MapColor(0, 200, 100, 0.8))">
+                            <Outline Color="@(new MapColor(255, 255, 255))" Width="1" />
+                        </SimpleFillSymbol>
+                        <PopupTemplate Title="{Name}" StringContent="{Description}" />
+                    </Graphic>
+                </GraphicsLayer>
+            </Map>
+        </MapView>
+    </div>
+</div>
+
+
+@code {
+
+    List<MapPath> taken()
+    {
+        List<MapPath> maps = new();
+        foreach (var point in AreaService.Objects)
+        {
+            MapPath mapPath = new();
+            foreach (var coordinate in point.Perimeter)
+            {
+                mapPath.Add(new MapPoint(coordinate.Longitude, coordinate.Latitude));
+            }
+            maps.Add(mapPath);
+        }
+        return maps;
+    }
+
+
+    protected override async void OnInitialized()
+    {
+        await AreaService.Get();
+        StateHasChanged();
+    }
+
+    public RestrictedArea NewRestrictedArea = new();
+    // public Landlord newLandLord = new();
+    // public TitleDeed newTitleDeed = new();
+    // public Purchase newPurchase = new();
+
+
+    // public Task ReserveLand()
+    // {
+    //     Console.WriteLine("Hello");
+    //     return Task.CompletedTask;
+    // }
+    bool show = false;
+    private readonly Dictionary<string, object> _graphicAttributes = new()
+    {
+        { "Name", "Sample Polygon" },
+        { "Description", "This is where you can describe the polygon." }
+    };
+
+    private static double _latitude = -12.796364387850875;
+    private static double _longitude = 28.23696449229915;
+
+    // private Root? _root = new();
+    private bool _showPointSection;
+    private bool _showLineSection;
+    private bool _showPolygonSection;
+    private GraphicsLayer? _graphicsLayer;
+    private Graphic? _polygonGraphic;
+    private Graphic? _pointGraphic;
+    private Graphic? _polylineGraphic;
+    dymaptic.GeoBlazor.Core.Components.Geometries.Point mapPoint = new dymaptic.GeoBlazor.Core.Components.Geometries.Point(-118.805, 34.027);
+
+
+
+    private readonly MapPath _mapRings3 = new(
+        new MapPoint(_longitude, _latitude),
+        new MapPoint(_longitude + 0.05, _latitude),
+        new MapPoint(_longitude + 0.05, _latitude + 0.5),
+        new MapPoint(_longitude, _latitude + 0.05));
+    RestrictedArea _restrictedArea = new();
+
+    private async Task OnMapClick(ClickEvent clickEvent)
+    {
+        ScreenPoint screenPoint = await _view!.ToScreen(clickEvent.MapPoint);
+        var point = await _view.ToMap(screenPoint);
+        var coordinate = new Coordinate(point.Latitude, point.Longitude);
+        foreach(var area in AreaService.Objects)
+        {
+            if (Geometrics.IsInside(coordinate, area.Perimeter))
+            {
+                Console.WriteLine("Cant add inside this area");
+                StateHasChanged();
+                return;
+            }
+        }
+        _restrictedArea.Perimeter.Add(coordinate);
+    }
+
+    MapPath newMapPath()
+    {
+        MapPath mapPath = new();
+        foreach (var coordinate in Geometrics.OrderCoordinates(_restrictedArea.Perimeter))
+            mapPath.Add(new MapPoint(coordinate.Longitude, coordinate.Latitude));
+        return mapPath;
+    }
+
+    List<MapPath> maps = new();
+
+
+
+
+    public void ClearMap()
+    {
+        // maps.Clear();
+        _restrictedArea.Perimeter.Clear();
+        StateHasChanged();
+    }
+
+
+
+    public void Delete(Coordinate mapPoint)
+    {
+        _restrictedArea.Perimeter.Remove(mapPoint);
+        StateHasChanged();
+    }
+
+    async Task Save()
+    {
+       //  _restrictedArea.Landlord = newLandLord;
+       // _restrictedArea.TitleDeed = newTitleDeed;
+       // _restrictedArea.Purchase = newPurchase;
+        await AreaService.Create(_restrictedArea);
+        _restrictedArea = new RestrictedArea();
+        StateHasChanged();
+    }
+    RestrictedArea? land;
+
+    private MapView? _view;
+    private string? _clickJson;
+    
+    private async Task GoToDetails() 
+
+    {
+  
+        await Task.Delay(1);
+        NavigationManager.NavigateTo($"/LandDetails/{land?.Id}");
+    }
+}

@@ -1,0 +1,623 @@
+﻿@* @page "/" *@
+@* *@
+@* @inject NavigationManager NavigationManager *@
+@* *@
+@* *@
+@* *@
+@* <PageTitle>Search RestrictedArea</PageTitle> *@
+@* *@
+@* *@
+@* <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> *@
+@*   <div class="modal-dialog"> *@
+@*     <div class="modal-content"> *@
+@*       <div class="modal-header"> *@
+@*         <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> *@
+@*         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> *@
+@*       </div> *@
+@*       <div class="modal-body"> *@
+@*         <form> *@
+@*           <div class="mb-3"> *@
+@*             <label for="recipient-name" class="col-form-label">Recipient:</label> *@
+@*             <input type="text" class="form-control" id="recipient-name"> *@
+@*           </div> *@
+@*           <div class="mb-3"> *@
+@*             <label for="message-text" class="col-form-label">Message:</label> *@
+@*             <textarea class="form-control" id="message-text"></textarea> *@
+@*           </div> *@
+@*         </form> *@
+@*       </div> *@
+@*       <div class="modal-footer"> *@
+@*         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+@*         <button type="button" class="btn btn-primary">Send message</button> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@* </div> *@
+@* *@
+@* <div class="row"> *@
+@* *@
+@* <div class="col-12"> *@
+@*      <div class="row"> *@
+@*           <div class="col-md-12"> *@
+@*                <h1>Search for RestrictedArea Details</h1> *@
+@*                <form> *@
+@*                     <div class="form-group"> *@
+@*                          <label for="coordinates">RestrictedArea *@
+@*                               coordinates(Click on the map to check the details of the restrictedArea)</label> *@
+@*                          <div class="input-group"> *@
+@*                               <input type="number" aria-label="First name" class="form-control" @bind="@newCoordinated.Latitude"> *@
+@*                               <input type="number" aria-label="Last name" class="form-control" @bind="@newCoordinated.Longitude"> *@
+@*                               <input type="text" aria-label="Last name" class="form-control" placeholder="RestrictedArea Id/Plot number "> *@
+@*                          </div> *@
+@*                     </div> *@
+@*                     <!-- Add more filters as needed --> *@
+@*                     <button type="button" class="btn btn-outline-success col-12 my-1" onclick="document.getElementById('details').scrollIntoView({behavior:'smooth'})">Search</button> *@
+@*                </form> *@
+@* *@
+@*           </div> *@
+@*      </div> *@
+@* *@
+@*      <!-- <form onsubmit="return false"> *@
+@*           <label for="name">Name:</label><br> *@
+@*           <input type="text" id="name" name="name" value="Ethan Hunt"><br> *@
+@*              *@
+@*           <select name="countries" id="countries"> *@
+@*                <option value="India">India</option> *@
+@*                <option value="Germany">Germany</option> *@
+@*                <option value="NetherrestrictedAreas">NetherrestrictedAreas</option> *@
+@*           </select> *@
+@*              *@
+@*           <input pys-onClick="sub" type="submit" id="btn-form" value="submit"> *@
+@*              *@
+@*              *@
+@*      </form>  *@
+@*               *@
+@*      <p>Output:</p> *@
+@*      <p id = 'output'></p> --> *@
+@* *@
+@* </div> *@
+@* <div class="col-12"> *@
+@*      <div class="col-12"> *@
+@*           <MapView Longitude="_longitude" Latitude="_latitude" Zoom="11" @ref="_view" Class="map-view" *@
+@*                    OnClick="OnMapClick" OnDoubleClick="OnMapDoubleClick" *@
+@*                    OnHold="OnMapHold" OnBlur="OnMapBlur" OnFocus="OnMapFocus" OnDrag="OnMapDrag" *@
+@*                    OnPointerDown="OnMapPointerDown" OnPointerUp="OnMapPointerUp" OnPointerEnter="OnMapPointerEnter" *@
+@*                    OnPointerLeave="OnMapPointerLeave" OnPointerMove="OnMapPointerMove" OnExtentChanged="OnMapExtentChanged" *@
+@*                    OnKeyDown="OnMapKeyDown" OnKeyUp="OnMapKeyUp" OnMouseWheel="OnMapMouseWheel" *@
+@*                    EventRateLimitInMilliseconds="500" Style="height: 800px; width: 100%;"> *@
+@*                <Map> *@
+@*                     <Basemap> *@
+@*                          <PortalItem Id="716b600dbbac433faa4bec9220c76b3a"/> *@
+@*                     </Basemap> *@
+@* *@
+@*                     <GraphicsLayer @ref="_graphicsLayer"> *@
+@*                          @foreach (var mapPath in maps) *@
+@*                          { *@
+@*                               <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes"> *@
+@*                                    <Polygon Rings="@(new[] { _mapRings3 })"/> *@
+@*                                    <SimpleFillSymbol Color="@(new MapColor(81, 46, 132, 0.8))"> *@
+@*                                         <Outline Color="@(new MapColor(255, 255, 255))" Width="1"/> *@
+@*                                    </SimpleFillSymbol> *@
+@*                                    <PopupTemplate Title="{Name}" StringContent="{Description}"/> *@
+@*                               </Graphic> *@
+@*                          } *@
+@*      <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes"> *@
+@*                                    <Polygon Rings="@(new[] { _mapRings3 })"/> *@
+@*                                    <SimpleFillSymbol Color="@(new MapColor(81, 46, 132, 0.8))"> *@
+@*                                         <Outline Color="@(new MapColor(255, 255, 255))" Width="1"/> *@
+@*                                    </SimpleFillSymbol> *@
+@*                                    <PopupTemplate Title="{Name}" StringContent="{Description}"/> *@
+@*                               </Graphic> *@
+@*                     </GraphicsLayer> *@
+@* *@
+@*                </Map> *@
+@*           </MapView> *@
+@* *@
+@*      </div> *@
+@* *@
+@* *@
+@* </div> *@
+@* <div class="col-lg-12 col-md-12 " id="details"> *@
+@* <div class="row"> *@
+@* <div class="col-lg-6  row justify-content-space-between"> *@
+@*      <div class="col-md-4"> *@
+@*           <img src="restrictedAreaowner.jpg" *@
+@*                alt="RestrictedArea owner photo" *@
+@*                class="img-fluid rounded-circle"> *@
+@*      </div> *@
+@*      <div class="col-md-8"> *@
+@*           <h1>John Smith</h1> *@
+@*           <p class="lead">RestrictedArea owner and farmer</p> *@
+@*           <p><i class="fas fa-map-marker-alt"></i> 123 *@
+@*                Main Street, Springfield, USA</p> *@
+@*           <p><i class="fas fa-phone"></i> +1 555 1234</p> *@
+@*           <p><i class="fas fa-envelope"></i> *@
+@*                john.smith@example.com</p> *@
+@*           <p><i class="fas fa-globe"></i> *@
+@*                www.johnsmithrestrictedArea.com</p> *@
+@*           <button type="button" class="btn btn-primary">Contact *@
+@*                John</button> *@
+@*      </div> *@
+@* </div> *@
+@* <hr> *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Personal Information</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <tr> *@
+@*                     <th scope="row">Full legal *@
+@*                          name</th> *@
+@*                     <td>John Smith</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Date of birth</th> *@
+@*                     <td>01/01/1980</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Citizenship</th> *@
+@*                     <td>USA</td> *@
+@*                </tr> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Identification Documents</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <tr> *@
+@*                     <th scope="row">Social *@
+@*                          Security number</th> *@
+@*                     <td>123-45-6789</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Passport or *@
+@*                          driver's license number</th> *@
+@*                     <td>P12345678 / D12345678</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Tax *@
+@*                          identification number</th> *@
+@*                     <td>12-3456789</td> *@
+@*                </tr> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* *@
+@* <!-- Repeat the same structure for the other sections --> *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>RestrictedArea Information</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <tr> *@
+@*                     <th scope="row">Legal *@
+@*                          description of the restrictedArea</th> *@
+@*                     <td>Lot 1, Block 2, Survey 3, *@
+@*                          Springfield County</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Address or *@
+@*                          geolocation coordinates *@
+@*                          of the restrictedArea</th> *@
+@*                     <td>123 Main Street, *@
+@*                          Springfield, USA / *@
+@*                          40.7128° N, 74.0060° W</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Total restrictedArea *@
+@*                          area</th> *@
+@*                     <td>100 acres</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Zoning *@
+@*                          classification</th> *@
+@*                     <td>Agricultural</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Any easements *@
+@*                          or encumbrances on the *@
+@*                          restrictedArea</th> *@
+@*                     <td>None</td> *@
+@*                </tr> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Purchase Information</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <tr> *@
+@*                     <th scope="row">Date of *@
+@*                          purchase</th> *@
+@*                     <td>01/01/2010</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Purchase price *@
+@*                          or valuation of the restrictedArea</th> *@
+@*                     <td>$1,000,000</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Financing *@
+@*                          details</th> *@
+@*                     <td>Cash payment</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Name and *@
+@*                          contact information of *@
+@*                          the seller</th> *@
+@*                     <td>Jane Doe / *@
+@*                          jane.doe@example.com / +1 *@
+@*                          555 4321</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Details of any *@
+@*                          real estate agents or *@
+@*                          brokers involved</th> *@
+@*                     <td>Bob Jones / *@
+@*                          bob.jones@example.com / *@
+@*                          +1 555 6789 / ABC Realty</td> *@
+@*                </tr> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Title and Deed</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <tr> *@
+@*                     <th scope="row">Title number *@
+@*                          or reference</th> *@
+@*                     <td>T12345678</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Deed or *@
+@*                          conveyance document *@
+@*                          details</th> *@
+@*                     <td>Recorded on 01/01/2010 at *@
+@*                          Springfield County *@
+@*                          Recorder's Office, Book *@
+@*                          123, Page 456</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Any liens, *@
+@*                          mortgages, or other *@
+@*                          claims on the property</th> *@
+@*                     <td>None</td> *@
+@*                </tr> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Property Taxes</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <tr> *@
+@*                     <th scope="row">Tax assessment *@
+@*                          details</th> *@
+@*                     <td>Assessed value: $1,200,000 *@
+@*                          / Tax rate: 1% / Annual *@
+@*                          tax: $12,000</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Tax payment *@
+@*                          history</th> *@
+@*                     <td>Paid in full for the last *@
+@*                          10 years</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Current tax *@
+@*                          status</th> *@
+@*                     <td>Up to date / No *@
+@*                          delinquencies or *@
+@*                          penalties</td> *@
+@*                </tr> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* *@
+@* <!-- Section 7 --> *@
+@* *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Environmental and Regulatory Information</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <!-- Environmental impact assessments (if required) --> *@
+@*                <!-- Compliance with restrictedArea use regulations and permits --> *@
+@*                <!-- Compliance with building codes (if applicable) --> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* *@
+@* <!-- Section 8 --> *@
+@* *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Utilities and Services</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <!-- Information about utility connections (water, electricity, gas, etc.) --> *@
+@*                <!-- Sewer and drainage system details --> *@
+@*                <!-- Accessibility to public services (roads, schools, hospitals, etc.) --> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Ownership History</h2> *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                <tr> *@
+@*                     <th scope="row">Previous *@
+@*                          owners of the restrictedArea</th> *@
+@*                     <td>Jane Doe, James Smith, *@
+@*                          Robert Jones</td> *@
+@*                </tr> *@
+@*                <tr> *@
+@*                     <th scope="row">Dates and *@
+@*                          details of previous sales *@
+@*                          or transfers</th> *@
+@*                     <td>01/01/2010: John Smith *@
+@*                          bought the restrictedArea from Jane *@
+@*                          Doe for $1,000,000 / *@
+@*                          01/01/2000: Jane Doe *@
+@*                          inherited the restrictedArea from *@
+@*                          James Smith / 01/01/1990: *@
+@*                          James Smith bought the *@
+@*                          restrictedArea from Robert Jones *@
+@*                          for $500,000</td> *@
+@*                </tr> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* *@
+@* <!-- Section 10 --> *@
+@* *@
+@* <div class="col-lg-6 row"> *@
+@*      <div class="col-md-12"> *@
+@*           <h2>Legal and Financial Obligations</h2> *@
+@*           $1$ <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@@mdo">Open modal for @@mdo</button> #1# *@
+@*           $1$ <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@@fat">Open modal for @@fat</button> #1# *@
+@*           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@@getbootstrap">Open modal for @@getbootstrap</button> *@
+@* *@
+@*        *@
+@*           <table class="table table-striped"> *@
+@*                <tbody> *@
+@*                 *@
+@*                <!-- Any ongoing lawsuits or legal disputes related to the restrictedArea --> *@
+@*                <!-- Existing mortgages, loans, or financial obligations tied to the property --> *@
+@*                </tbody> *@
+@*           </table> *@
+@*      </div> *@
+@* </div> *@
+@* *@
+@* </div> *@
+@* *@
+@* </div> *@
+@* </div> *@
+@* *@
+@* @code { *@
+@*     private async Task GetPolygon() *@
+@*     { *@
+@*         if (_polygonGraphic is null) return; *@
+@* *@
+@*         Geometry? geometry = await _polygonGraphic.GetGeometry(); *@
+@*         _geometry = JsonSerializer.Serialize(geometry); *@
+@*     } *@
+@*     private readonly Dictionary<string, object> _graphicAttributes = new() *@
+@*     { *@
+@*         { "Name", "Sample Polygon" }, *@
+@*         { "Description", "This is where you can describe the polygon." } *@
+@*     }; *@
+@*      *@
+@*     private static double _latitude =-12.80243; *@
+@*     private static double _longitude =28.21323; *@
+@*      *@
+@*     private  double _latitude2 = _latitude; *@
+@*     private  double _longitude2 = _longitude; *@
+@*      *@
+@*     // private Root? _root = new(); *@
+@*     private bool _showPointSection; *@
+@*     private bool _showLineSection; *@
+@*     private bool _showPolygonSection; *@
+@*     private GraphicsLayer? _graphicsLayer; *@
+@*     private Graphic? _polygonGraphic; *@
+@*     private Graphic? _pointGraphic; *@
+@*     private Graphic? _polylineGraphic; *@
+@*     private string? _geometry; *@
+@*     Point mapPoint = new Point(-118.805, 34.027); *@
+@*     private readonly MapPath _mapRings = new(new MapPoint(-118.818984489994, 34.0137559967283), *@
+@*         new MapPoint(-118.806796597377, 34.0215816298725), *@
+@*         new MapPoint(-118.791432890735, 34.0163883241613), *@
+@*         new MapPoint(-118.79596686535, 34.008564864635), *@
+@*         new MapPoint(-118.808558110679, 34.0035027131376)); *@
+@* *@
+@* *@
+@*     private MapPath _mapRings2 = new(); *@
+@* *@
+@*      private readonly MapPath _mapRings3 = new( *@
+@*           new MapPoint(_longitude,_latitude), *@
+@*           new MapPoint(_longitude + 0.05, _latitude), *@
+@*           new MapPoint(_longitude + 0.05, _latitude+0.5), *@
+@*           new MapPoint(_longitude , _latitude + 0.05)); *@
+@*     private async Task OnMapClick(ClickEvent clickEvent) *@
+@*     { *@
+@*         _clickJson = BuildViewableJson(clickEvent); *@
+@*         ScreenPoint screenPoint = await _view!.ToScreen(clickEvent.MapPoint); *@
+@*         _clickJson += $", ScreenPoint: {screenPoint.X}, {screenPoint.Y}"; *@
+@*         mapPoint = await _view.ToMap(screenPoint); *@
+@*         _clickJson += $", MapPoint: {mapPoint.X}, {mapPoint.Y}"; *@
+@*         _latitude2 = (double)mapPoint.Latitude; *@
+@*         _longitude2 = (double)mapPoint.Longitude; *@
+@*         Console.WriteLine($"latitude: {mapPoint.Latitude}, longitude: {mapPoint.Longitude}"); *@
+@*         // _mapRings2 = new ( *@
+@*         //     new MapPoint(_longitude2, _latitude2), *@
+@*         //     new MapPoint(_longitude2 + 0.01, _latitude2), *@
+@*         //     new MapPoint(_longitude2 + 0.01, _latitude2 + 0.01), *@
+@*         //     new MapPoint(_longitude2, _latitude2 + 0.01)); *@
+@*         // show = true; *@
+@*          // NavigationManager.NavigateTo("/#details"); *@
+@*          *@
+@*         newCoordinated.Latitude = (double)mapPoint.Latitude; *@
+@*         newCoordinated.Longitude = (double)mapPoint.Longitude; *@
+@*         StateHasChanged(); *@
+@* *@
+@*     } *@
+@*      *@
+@*     List<MapPath> maps = new(); *@
+@*     MapPath mapPath = new(); *@
+@*     List<Coordinate> mapPoints = new(); *@
+@*     Coordinate newCoordinated = new(); *@
+@*      *@
+@*     public void AddToPoints() *@
+@*     { *@
+@*         mapPoints.Add(newCoordinated); *@
+@*         newCoordinated = new(); *@
+@*         // mapPaths.Add(new MapPath(newLat, newLong)); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*      *@
+@*     public void ClearMap() *@
+@*     { *@
+@*         // maps.Clear(); *@
+@*         mapPoints.Clear(); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*     public void CreateMap() *@
+@*     { *@
+@*         foreach (var mapPoint in mapPoints) *@
+@*         { *@
+@*             mapPath.Add(new MapPoint(mapPoint.Longitude, mapPoint.Latitude)); *@
+@*         } *@
+@*         maps.Add(mapPath); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*      *@
+@*     public void Delete(Coordinate mapPoint) *@
+@*     { *@
+@*         mapPoints.Remove(mapPoint); *@
+@*         StateHasChanged(); *@
+@*     } *@
+@*     *@
+@*     private void OnMapDoubleClick(ClickEvent clickEvent) *@
+@*     { *@
+@*         _doubleClickJson = BuildViewableJson(clickEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapHold(ClickEvent holdEvent) *@
+@*     { *@
+@*         _holdJson = BuildViewableJson(holdEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapBlur(BlurEvent blurEvent) *@
+@*     { *@
+@*         _blurJson = BuildViewableJson(blurEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapFocus(FocusEvent focusEvent) *@
+@*     { *@
+@*         _focusJson = BuildViewableJson(focusEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapDrag(DragEvent dragEvent) *@
+@*     { *@
+@*         _dragJson = BuildViewableJson(dragEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerEnter(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerEnterJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerLeave(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerLeaveJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerDown(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerDownJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerUp(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerUpJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapPointerMove(PointerEvent pointerEvent) *@
+@*     { *@
+@*         _pointerMoveJson = BuildViewableJson(pointerEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapExtentChanged(Extent extent) *@
+@*     { *@
+@*         _extentJson = BuildViewableJson(extent); *@
+@*     } *@
+@* *@
+@*     private void OnMapKeyDown(KeyDownEvent keyDownEvent) *@
+@*     { *@
+@*         _keyDownJson = BuildViewableJson(keyDownEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapKeyUp(KeyUpEvent keyUpEvent) *@
+@*     { *@
+@*         _keyUpJson = BuildViewableJson(keyUpEvent); *@
+@*     } *@
+@* *@
+@*     private void OnMapMouseWheel(MouseWheelEvent mouseWheelEvent) *@
+@*     { *@
+@*         _mouseWheelJson = BuildViewableJson(mouseWheelEvent); *@
+@*     } *@
+@* *@
+@*     private string BuildViewableJson(object eventObject) *@
+@*     { *@
+@*         string json = JsonSerializer.Serialize(eventObject, _options); *@
+@*         return json.Replace(Environment.NewLine, "<br>") *@
+@*             .Replace(" ", "&nbsp;"); *@
+@*     } *@
+@*     // *@
+@* *@
+@*      *@
+@*      *@
+@*      *@
+@*      *@
+@*     private MapView? _view; *@
+@*     private string? _clickJson; *@
+@*     private string? _doubleClickJson; *@
+@*     private string? _holdJson; *@
+@*     private string? _blurJson; *@
+@*     private string? _focusJson; *@
+@*     private string? _dragJson; *@
+@*     private string? _pointerEnterJson; *@
+@*     private string? _pointerLeaveJson; *@
+@*     private string? _pointerDownJson; *@
+@*     private string? _pointerUpJson; *@
+@*     private string? _pointerMoveJson; *@
+@*     private string? _extentJson; *@
+@*     private string? _keyDownJson; *@
+@*     private string? _keyUpJson; *@
+@*     private string? _mouseWheelJson; *@
+@*     private readonly JsonSerializerOptions _options = new() *@
+@*     { *@
+@*         WriteIndented = true, *@
+@*         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull *@
+@*     }; *@
+@*      *@
+@*      *@
+@* } *@
