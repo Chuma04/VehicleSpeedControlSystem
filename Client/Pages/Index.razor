@@ -1,6 +1,4 @@
 ﻿@page "/"
-
-
 @inject NavigationManager NavigationManager
 @inject IAreaService AreaService
 
@@ -15,7 +13,7 @@
 				<div class="container-fluid p-0">
 					<div class="d-flex justify-content-between align-items-center">
 						<h3 class="display-6 mb-3"><span class="text-black-50">Restricted Areas</span> Dashboard</h3>
-						<a href="upgrade-to-pro.html" class="btn btn-primary"><i class="bi bi-plus-lg me-2 mt-1"></i>Add</a>
+						<a href="/manage-restricted-areas" class="btn btn-primary"><i class="bi bi-map me-2 mt-1"></i>Restricted Areas</a>
 					</div>
 
 					<div class="row">
@@ -79,7 +77,7 @@
 								<div class="card-header">
 									<h5 class="card-title mb-0">Restricted Areas Map</h5>
 								</div>
-								<div class="card-body py-3">
+								<div class="card-body py-1">
 									<div class="">
 										<MapView Longitude="_longitude" Latitude="_latitude" Zoom="16" @ref="_view" Class="map-view"
 										         OnClick="OnMapClick" EventRateLimitInMilliseconds="500" Style="height: 800px; width: 100%;">
@@ -124,61 +122,7 @@
 				</div>
 			</main>
 
-			
-	@* 	</div> *@
-	@* </div> *@
-
-
-
-
-
-@* <div class="row"> *@
-
-@* <div class="col-12"> *@
-@*      <div class="row"> *@
-@*           <div class="col-md-12"> *@
-@*                <h1></h1> *@
-               @* <form> *@
-@*                     <div class="form-group">
-                         <label for="coordinates">RestrictedArea
-                              coordinates(Click on the map to check the details of the restrictedArea)</label>
-                         <div class="input-group">
-                              <input type="number" aria-label="First name" class="form-control" @bind="@newCoordinated.Latitude">
-                              <input type="number" aria-label="Last name" class="form-control" @bind="@newCoordinated.Longitude">
-                              <input type="text" aria-label="Last name" class="form-control" placeholder="RestrictedArea Id/Plot number ">
-                         </div>
-                    </div> *@
-                    <!-- Add more filters as needed -->
-               @*      @if(land is not null) *@
-               @*      { *@
-               @*      <button type="button" class="btn btn-outline-success col-12 my-1" @onclick="GoToDetails">Search</button> *@
-               @* *@
-               @*      } *@
-               @* </form> *@
-
-@*           </div> *@
-@*      </div> *@
-@* *@
-@* </div> *@
-@* <div class="col-12"> *@
-@*      <div class="col-12"> *@
-@*            *@
-@* *@
-@*      </div> *@
-@* *@
-@* *@
-@*     </div> *@
-@* </div> *@
-
 @code {
-    // protected override async Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //      if (firstRender)
-    //      {
-    //           await _view!.GoTo(new MapPoint(-118.805, 34.027), 11);
-    //      }
-    // }
-
     protected override async void OnInitialized()
     {
         await AreaService.Get();
@@ -193,8 +137,8 @@
 
 	private static double _latitude = -12.796364387850875;
 	private static double _longitude = 28.23696449229915;
-    private  double _latitude2 = _latitude;
-    private  double _longitude2 = _longitude;
+    // private  double _latitude2 = _latitude;
+    // private  double _longitude2 = _longitude;
 
     // private Root? _root = new();
     private bool _showPointSection;

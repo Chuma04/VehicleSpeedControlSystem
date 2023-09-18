@@ -1,0 +1,255 @@
+@page "/add-restricted-area"
+@inject NavigationManager NavigationManager
+@inject IAreaService AreaService
+
+<PageTitle>Add Restricted Area</PageTitle>
+<main class="content">
+	<div class="container-fluid p-0">
+		<div class="d-flex justify-content-between align-items-center">
+			<h3 class="display-6 mb-3"><span class="text-black-50">Add </span>Restricted Area</h3>
+			<a href="/manage-restricted-areas" class="btn btn-primary"><i class="bi bi-map me-2 mt-1"></i>Restricted Areas</a>
+		</div>
+
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="card rounded-4 flex-fill w-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Map</h5>
+                        <button class="btn btn-sm btn-secondary rounded-2" style="width: 80px;" @onclick="Reload"><i class="bi bi-arrow-clockwise me-2 mt-1"></i>Reload</button>
+                    </div>
+                    <div class="card-body py-1">
+                        <div class="">
+                            <MapView Longitude="_longitude" Latitude="_latitude" Zoom="zoom" @ref="_view" Class="map-view"
+                                     OnClick="OnMapClick"
+                                     EventRateLimitInMilliseconds="500" Style="height: 800px; width: 100%;">
+                                <Map>
+                                    <Basemap>
+                                        <PortalItem Id="716b600dbbac433faa4bec9220c76b3a"/>
+                                    </Basemap>
+                                    
+                                    <GraphicsLayer @ref="_graphicsLayer">
+                                        @if (AreaService.Objects is not null)
+                                        {
+                                            @foreach (var map in taken())
+                                            {
+                                                <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes">
+                                                    <Polygon Rings="@(new[] { map })"/>
+                                                    <SimpleFillSymbol Color="@(new MapColor(81, 46, 132, 0.8))">
+                                                        <Outline Color="@(new MapColor(255, 255, 255))" Width="1"/>
+                                                    </SimpleFillSymbol>
+                                                    <PopupTemplate Title="{Name}" StringContent="{Description}"/>
+                                                </Graphic>
+                                            }
+                                        }
+                                        <Graphic @ref="_polygonGraphic" Attributes="_graphicAttributes">
+                                            <Polygon Rings="@(new[] { newMapPath() })"/>
+                                            <SimpleFillSymbol Color="@(new MapColor(0, 200, 100, 0.8))">
+                                                <Outline Color="@(new MapColor(255, 255, 255))" Width="1"/>
+                                            </SimpleFillSymbol>
+                                            <PopupTemplate Title="{Name}" StringContent="{Description}"/>
+                                        </Graphic>
+                                    </GraphicsLayer>
+                                </Map>
+                            </MapView>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="col-xl-3">
+                    <div class="form-group col mt-5">
+                        <label class="react-label">
+                            <i class="bi bi-info-circle me-2 mb-3"></i>Click on the map to to add vertices of the area
+                        </label>
+                        <div style="margin-left: 1rem; max-height: 6rem; overflow-y: auto;">
+                            <b>@((MarkupString)(_clickJson ?? ""))</b>
+                        </div>
+                    </div>
+                    @foreach (var mapPointx in newRestrictedArea.Perimeter)
+                    {
+                        <div class="input-group">
+                            <span class="input-group-text">Lat and last Long</span>
+                            <input type="text" aria-label="First name" class="form-control" disabled @bind="@mapPointx.Latitude">
+                            <input type="text" aria-label="Last name" class="form-control" disabled @bind="@mapPointx.Longitude">
+                            <button class="btn  btn-outline-danger " @onclick="()=>Delete(mapPointx)">Delete</button>
+                    
+                        </div>
+                    }
+                    <button class="btn  btn-success col-12 my-2 mt-3" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" @buttonStatus>Add Restricted Aread</button>
+                    <div class="input-group my-5">
+                      <span class="input-group-text" id="basic-addon1"><i class="bi bi-zoom-in me-2"></i>Zoom</span>
+                      <input type="number" class="form-control" @bind="zoom" @bind:event="oninput" placeholder="zoom level" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    </div>
+                    @* *@
+                    @* <div class="input-group mb-3"> *@
+                    @*     @if (Geometrics.IsValidPolygon(newRestrictedArea.Perimeter)) *@
+                    @*     { *@
+                    @*         <p class="form-control">  @Geometrics.PolygonArea(newRestrictedArea.Perimeter).ToString()</p> *@
+                    @*     } *@
+                    @* </div> *@
+                </div>
+        </div>
+    </div>
+</main>
+
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <EditForm Model="newRestrictedArea" OnSubmit="Save">
+                <div class="modal-header">
+                    <h2>Area Information</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+           
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Fill in the details of the area</h1>
+                            <div class="m-sm-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Name of Restricted Area</label>
+                                    <input @bind="newRestrictedArea.Name" type="text" class="form-control" placeholder="Area Name" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Speed Limit</label>
+                                    <input @bind="newRestrictedArea.SpeedLimit" type="number" class="form-control" placeholder="Speed Limit" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Area Type</label>
+                                    <InputSelect type="text" @bind-Value="newRestrictedArea.Classification" class="form-control" placeholder="Classification" aria-label="Username" aria-describedby="basic-addon1">
+                                        @foreach (var item in Enum.GetValues(typeof(Classification)))
+                                        {
+                                            <option value="@item">@item</option>
+                                        }
+                                    </InputSelect>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success w-100" data-bs-dismiss="modal">Save</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    // public Coordinate currentAnimalPosition = new();
+    public int zoom = 11;
+    List<MapPath> taken()
+    {
+        List<MapPath> maps = new();
+        foreach(var point in  AreaService.Objects)
+        {
+            MapPath mapPath = new();
+            foreach (var coordinate in point.Perimeter)
+            {
+                mapPath.Add(new MapPoint(coordinate.Longitude, coordinate.Latitude));
+            }
+            maps.Add(mapPath);
+        }
+        return maps;
+    }
+    
+    
+    protected override async void OnInitialized()
+    {
+        await AreaService.Get();
+        StateHasChanged();
+    }
+    public RestrictedArea newRestrictedArea = new();
+ 
+    bool show = false;
+    private readonly Dictionary<string, object> _graphicAttributes = new()
+    {
+        { "Name", "Sample Polygon" },
+        { "Description", "This is where you can describe the polygon." }
+    };
+    
+    private static double _latitude =-12.80243;
+    private static double _longitude =28.21323;
+    
+    // private Root? _root = new();
+    private bool _showPointSection;
+    private bool _showLineSection;
+    private bool _showPolygonSection;
+    private GraphicsLayer? _graphicsLayer;
+    private Graphic? _polygonGraphic;
+    private Graphic? _pointGraphic;
+    private Graphic? _polylineGraphic;
+    string buttonStatus = "disabled";
+    Point mapPoint = new Point(-118.805, 34.027);
+
+
+    private readonly MapPath _mapRings3 = new(
+        new MapPoint(_longitude,_latitude),
+        new MapPoint(_longitude + 0.05, _latitude),
+        new MapPoint(_longitude + 0.05, _latitude+0.5),
+        new MapPoint(_longitude , _latitude + 0.05));
+        // RestrictedArea _land = new();
+
+    private async Task OnMapClick(ClickEvent clickEvent)
+    {
+        ScreenPoint screenPoint = await _view!.ToScreen(clickEvent.MapPoint);
+        var point = await _view.ToMap(screenPoint);
+        var coordinate = new Coordinate(point.Latitude, point.Longitude);
+        foreach(var area in AreaService.Objects)
+        {
+            if (Geometrics.IsInside(coordinate, area.Perimeter))
+            {
+                Console.WriteLine("Cant add inside this area");
+                StateHasChanged();
+                return;
+            }
+        }
+        newRestrictedArea.Perimeter.Add(coordinate);
+        
+        buttonStatus = newRestrictedArea.Perimeter.Any() ? "" : "disabled";
+        
+        StateHasChanged();
+    }
+
+    MapPath newMapPath()
+    {
+        MapPath mapPath = new();
+        foreach (var coordinate in Geometrics.OrderCoordinates(newRestrictedArea.Perimeter))
+        {
+            mapPath.Add(new MapPoint(coordinate.Longitude, coordinate.Latitude));
+        }
+        return mapPath;
+    }
+    
+    public void ClearMap()
+    {
+        // maps.Clear();
+        newRestrictedArea.Perimeter.Clear();
+        StateHasChanged();
+    }
+    
+    public void Delete(Coordinate mapPoint)
+    {
+        newRestrictedArea.Perimeter.Remove(mapPoint);
+        StateHasChanged();
+    }
+   
+    async Task Save()
+    {
+        await AreaService.Create(newRestrictedArea);
+        newRestrictedArea = new RestrictedArea();
+        StateHasChanged();
+        NavigationManager.NavigateTo("/manage-restricted-areas");
+    }
+
+    void Reload ()
+    {
+        _view!.Refresh();
+        StateHasChanged();
+    }
+    
+    private MapView? _view;
+    private string? _clickJson; 
+}
