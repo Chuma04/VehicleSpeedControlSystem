@@ -1,0 +1,118 @@
+@page "/manage-restricted-areas"
+@inject NavigationManager NavigationManager
+@inject IAreaService AreaService
+
+<PageTitle>Manage Restricted Areas</PageTitle>
+
+<main class="container mt-5">
+	<div class="row mt-4">
+		<div class="col-12 d-flex justify-content-between align-items-center">
+			<h3 class="display-6 mb-3"><span class="text-black-50">Manage </span>Restricted Areas</h3>
+			<a href="/add-restricted-area" class="btn btn-primary"><i class="bi bi-plus-lg me-2 mt-1"></i> Add</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="@ResponseMessageClass">@ResponseMessage</div>
+		<div class="col-12 d-flex">
+			<div class="card flex-fill">
+				<div class="card-header">
+					<h5 class="card-title mb-0">Restricted Areas</h5>
+				</div>
+				@if (AreaService.Objects.Any())
+				{
+					<table class="table table-hover my-0">
+						<thead>
+						<tr>
+							<th class="d-none d-xl-table-cell">Area Name</th>
+							<th class="d-none d-xl-table-cell">Area Type</th>
+							<th class="d-none d-md-table-cell">Speed Limit</th>
+							<th class="d-none d-md-table-cell">Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						@foreach (var restrictedArea in AreaService.Objects)
+						{
+							<tr>
+								<td class="d-none d-xl-table-cell">@restrictedArea.Name</td>
+								<td class="d-none d-xl-table-cell">@restrictedArea.Classification</td>
+								<td class="d-none d-xl-table-cell">@restrictedArea.SpeedLimit.ToString()</td>
+								<td>
+									<button class="btn btn-sm btn-secondary rounded-2" @onclick="() => EditArea(restrictedArea.Id)"><i class="bi bi-pencil"></i></button>
+									<button class="btn btn-sm btn-outline-danger rounded-2" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" @onclick="() => ConfirmDeleteArea(restrictedArea.Id)">Delete</button>
+								</td>
+							</tr>
+						}
+						</tbody>
+					</table>
+				}
+				else
+				{
+					<div class="text-center w-100 p-4 fs-4"><i>Opps! We couldn't find any areas in the database.</i></div>
+				}
+			</div>
+		</div>
+	</div>
+</main>
+
+<div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           
+                <div class="modal-header">
+                    <h2>Confirm Delete</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" @onclick="() => CancelDelete()" aria-label="Close"></button>
+                </div>
+           
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Are you sure you want to delete this ares from the database? This action is irreversible</h1>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" @onclick="DeleteArea" data-bs-dismiss="modal">Delete</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+@code {
+	private string ResponseMessageClass { get; set; } = "d-none";
+	private string ResponseMessage { get; set; } = string.Empty;
+	
+	private int RestrictedAreaDeleteId { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await AreaService.Get();
+        StateHasChanged();
+    }
+    
+    private void EditArea(int id) => NavigationManager.NavigateTo($"/edit-restricted-area/{id}");
+    
+	private void ConfirmDeleteArea(int id) => RestrictedAreaDeleteId = id;
+	
+	private void CancelDelete() => RestrictedAreaDeleteId = 0; 
+	
+    private async Task DeleteArea()
+    {
+	    try
+	    {
+		    await AreaService.Delete(RestrictedAreaDeleteId);
+		    ResponseMessageClass = "alert alert-success";
+		    ResponseMessage = "Area deleted successfully";
+	    }
+	    catch (Exception e)
+	    {
+		    ResponseMessageClass = "my-2 alert alert-danger";
+		    ResponseMessage = e.Message;
+	    }
+	    finally
+	    {
+		    CancelDelete();
+		    StateHasChanged();
+	    }
+    }
+}

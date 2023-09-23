@@ -15,6 +15,9 @@ public class  CoordinatesController : BaseController<Coordinate>
                 return Ok(restrictedArea);
         return BadRequest("Not in any restricted area");
     }
+    
+
+    
 }
 
 // public class  AdminController : BaseController<Admin>

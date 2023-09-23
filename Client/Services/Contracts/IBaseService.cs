@@ -8,5 +8,5 @@ public interface IBaseService<T> where T : BaseEntity
     Task<T> GetByID(int id);
     Task<T> Create(T dto);
     Task<T> Update(T t);
-    Task<string> Delete(int id);
+    Task Delete(int id);
 }

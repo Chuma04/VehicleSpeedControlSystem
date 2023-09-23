@@ -9,65 +9,81 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = VehicleSpeedControlSystem.Client
 build_property.RootNamespace = VehicleSpeedControlSystem.Client
-build_property.ProjectDir = C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Client\
+build_property.ProjectDir = /Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\chuma\source\repos\VehicleSpeedControlSystem\VehicleSpeedControlSystem\Client
+build_property.MSBuildProjectDirectory = /Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/App.razor]
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/AddRestrictedArea.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRkUmVzdHJpY3RlZEFyZWEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/CounterReserve.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlclJlc2VydmUucmF6b3I=
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/DetailsPage.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV0YWlsc1BhZ2UucmF6b3I=
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/CounterReserve.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlclJlc2VydmUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/FetchData.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/DetailsPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGV0YWlsc1BhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/EditRestrictedArea.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdFJlc3RyaWN0ZWRBcmVhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/IndeXr.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZVhyLnJhem9y
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/Notifications.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9ucy5yYXpvcg==
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/IndeXr.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZVhyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/SignIn.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2lnbkluLnJhem9y
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/ManageRestrictedAreas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTWFuYWdlUmVzdHJpY3RlZEFyZWFzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Pages/SignUp.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2lnblVwLnJhem9y
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/Notifications.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTm90aWZpY2F0aW9ucy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Shared/SurveyPrompt.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/SignIn.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2lnbkluLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/_Imports.razor]
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Pages/SignUp.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2lnblVwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Shared/Footer.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0Zvb3Rlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Shared/Header.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0hlYWRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Shared/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-xv1tlzdffo
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-t507nuzf0e
 
-[C:/Users/chuma/source/repos/VehicleSpeedControlSystem/VehicleSpeedControlSystem/Client/Shared/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-9mwer6ck09
+[/Users/ittaitumelo/RiderProjects/VehicleSpeedControlSystem/Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2hxndnaw7e

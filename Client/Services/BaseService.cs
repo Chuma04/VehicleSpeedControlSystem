@@ -19,14 +19,11 @@ namespace VehicleSpeedControlSystem.Client.Services;
             return response;
         }
 
-        public virtual async Task<string> Delete(int id)
+        public virtual async Task Delete(int id)
         {
             var request = await _httpClient.DeleteAsync($"api/{typeof(T).Name}/{id}");
             if (!request.IsSuccessStatusCode) throw new Exception(request.ReasonPhrase);
-            var response = await request.Content.ReadFromJsonAsync<string>();
-            if (response == null) throw new Exception("No object was deleted");
             Objects.Remove(Objects.First(o=>o.Id==id));
-            return response;
         }
 
         public virtual async Task<List<T>> Get(bool forceRefresh)

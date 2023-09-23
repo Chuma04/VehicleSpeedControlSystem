@@ -7,33 +7,22 @@ public class  RestrictedAreaController : BaseController<RestrictedArea>
     [HttpGet]
     public override ActionResult<List<RestrictedArea>> Get() => _context.RestrictedAreas.Include(land=>land.Perimeter).ToList() ?? new() ;
     
-    // [HttpGet("GetLandByLandlordId/{landlordId}")]
-    // public ActionResult<List<RestrictedArea>> GetLandByLandlordId(int landlordId)
-    // {
-    //     var land = _context.RestrictedAreas.Include(land=>land.Landlord).ToList()
-    //         .Where(x=>x.Landlord != null && x.Landlord.Id==landlordId).ToList();
-    //     return land.IsNullOrEmpty() ? BadRequest($"There is no restrictedArea with LandlordId = {landlordId}") : Ok(land);
-    // }
-    
-    // [HttpGet("ReserveLand/{landId}")]
-    // public ActionResult<RestrictedArea> ReserveLand(int landId)
-    // {
-    //     var land = _context.RestrictedAreas.FirstOrDefault(x=>x.Id==landId); //This is not going to work in this context, but okay
-    //     if (land is null) return BadRequest($"There is no restrictedArea with Id = {landId}");
-    //     land.IsReserved = true;
-    //     _context.SaveChanges();
-    //     return Ok(land);
-    // }
-    
-    // [HttpGet("UnReserveLand/{landId}")]
-    // public ActionResult<RestrictedArea> UnReserveLand(int landId)
-    // {
-    //     var land = _context.RestrictedAreas.FirstOrDefault(x=>x.Id==landId); //This is not going to work in this context, but okay
-    //     if (land is null) return BadRequest($"There is no restrictedArea with Id = {landId}");
-    //     land.IsReserved = false;
-    //     _context.SaveChanges();
-    //     return Ok(land);
-    // }
+    // override the delete method to delete the coordinates and the restricted area
+    [HttpDelete("{Id}")]
+    public override ActionResult Delete(int Id)
+    {
+        var restrictedArea = _context.RestrictedAreas
+            .Include(area => area.Perimeter)
+            .FirstOrDefault(x=>x.Id==Id);
+        if (restrictedArea is null) return BadRequest($"Area was not found");
+        
+        _context.Coordinates.RemoveRange(restrictedArea.Perimeter);
+        _context.RestrictedAreas.Remove(restrictedArea);
+        
+        _context.SaveChanges();
+        
+        return Ok("Area deleted successfully");
+    }
     
     [HttpPost]
     [HttpGet("CreateRestrictedArea")]
@@ -51,15 +40,25 @@ public class  RestrictedAreaController : BaseController<RestrictedArea>
         return Ok(newRestrictedArea);
     }
     
-    [HttpGet("SearchLandByCoordinate")]
+    [HttpPost("SearchLandByCoordinate")]
     public ActionResult<RestrictedArea> SearchAreaByCoordinate(Coordinate coordinate)
     {
-        var restrictedAreas = _context.RestrictedAreas.ToList();
-        if(restrictedAreas.IsNullOrEmpty()) return BadRequest("No restrictedArea found");
-        foreach(var restrictedArea in restrictedAreas)
-            if (Geometrics.IsInside(coordinate, restrictedArea.Perimeter))
-                return Ok(restrictedArea);
-        return BadRequest("No restricted area found");
+        var restrictedAreas = _context.RestrictedAreas.Include(x=>x.Perimeter).ToList();
+        if(restrictedAreas.IsNullOrEmpty()) return BadRequest("No restricted area found");
+        foreach (var restrictedArea in restrictedAreas)
+        {
+            try
+            {
+                if (Geometrics.IsInside(coordinate, restrictedArea.Perimeter))
+                    return Ok(restrictedArea.SpeedLimit);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        return BadRequest("Not in any restricted area");
     }
     
 }

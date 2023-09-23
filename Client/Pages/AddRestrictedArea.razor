@@ -7,7 +7,7 @@
 	<div class="container-fluid p-0">
 		<div class="d-flex justify-content-between align-items-center">
 			<h3 class="display-6 mb-3"><span class="text-black-50">Add </span>Restricted Area</h3>
-			<a href="/manage-restricted-areas" class="btn btn-primary"><i class="bi bi-map me-2 mt-1"></i>Restricted Areas</a>
+			<a href="/manage-restricted-areas/" class="btn btn-primary"><i class="bi bi-map me-2 mt-1"></i>Restricted Areas</a>
 		</div>
 
         <div class="row">
@@ -80,13 +80,6 @@
                       <span class="input-group-text" id="basic-addon1"><i class="bi bi-zoom-in me-2"></i>Zoom</span>
                       <input type="number" class="form-control" @bind="zoom" @bind:event="oninput" placeholder="zoom level" aria-label="Recipient's username" aria-describedby="button-addon2">
                     </div>
-                    @* *@
-                    @* <div class="input-group mb-3"> *@
-                    @*     @if (Geometrics.IsValidPolygon(newRestrictedArea.Perimeter)) *@
-                    @*     { *@
-                    @*         <p class="form-control">  @Geometrics.PolygonArea(newRestrictedArea.Perimeter).ToString()</p> *@
-                    @*     } *@
-                    @* </div> *@
                 </div>
         </div>
     </div>
@@ -109,15 +102,15 @@
                             <div class="m-sm-3">
                                 <div class="mb-3">
                                     <label class="form-label">Name of Restricted Area</label>
-                                    <input @bind="newRestrictedArea.Name" type="text" class="form-control" placeholder="Area Name" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input @bind="newRestrictedArea.Name" type="text" class="form-control" placeholder="Area Name" aria-label="Username" aria-describedby="basic-addon1" minlength="3" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Speed Limit</label>
-                                    <input @bind="newRestrictedArea.SpeedLimit" type="number" class="form-control" placeholder="Speed Limit" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input @bind="newRestrictedArea.SpeedLimit" type="number" class="form-control" placeholder="Speed Limit" aria-label="Username" aria-describedby="basic-addon1" min="5" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Area Type</label>
-                                    <InputSelect type="text" @bind-Value="newRestrictedArea.Classification" class="form-control" placeholder="Classification" aria-label="Username" aria-describedby="basic-addon1">
+                                    <label class="form-label">Select an Area Type</label>
+                                    <InputSelect type="text" @bind-Value="newRestrictedArea.Classification" class="form-control" placeholder="Classification" aria-label="Username" aria-describedby="basic-addon1" required>
                                         @foreach (var item in Enum.GetValues(typeof(Classification)))
                                         {
                                             <option value="@item">@item</option>
@@ -138,7 +131,6 @@
 </div>
 
 @code {
-    // public Coordinate currentAnimalPosition = new();
     public int zoom = 11;
     List<MapPath> taken()
     {

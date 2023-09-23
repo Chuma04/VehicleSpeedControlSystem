@@ -1,0 +1,91 @@
+@page "/edit-restricted-area/{id:int}"
+@inject NavigationManager NavigationManager
+@inject IAreaService AreaService
+
+<PageTitle>Edit Area</PageTitle>
+
+<main class="container mt-5">
+    <div class="row mt-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h3 class="display-6 mb-3"><span class="text-black-50">Edit </span>@_restrictedArea.Name</h3>
+            <a href="/manage-restricted-areas/" class="btn btn-primary"><i class="bi bi-map me-2 mt-1"></i>Restricted Areas</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="@ResponseMessageClass">@ResponseMessage</div>
+        <div class="col-12">
+            <div class="card shadow-sm p-3">
+                <EditForm Model="_restrictedArea" OnSubmit="Save">
+                    <div class="modal-header">
+                        <h2>Area Information</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="m-sm-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Name of Restricted Area</label>
+                                        <input @bind="_restrictedArea.Name" type="text" class="form-control" placeholder="Area Name" aria-label="Username" aria-describedby="basic-addon1" minlength="3" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Speed Limit</label>
+                                        <input @bind="_restrictedArea.SpeedLimit" type="number" class="form-control" placeholder="Speed Limit" aria-label="Username" aria-describedby="basic-addon1" min="5" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Select an Area Type</label>
+                                        <InputSelect type="text" @bind-Value="_restrictedArea.Classification" class="form-control" placeholder="Classification" aria-label="Username" aria-describedby="basic-addon1" required>
+                                            @foreach (var item in Enum.GetValues(typeof(Classification)))
+                                            {
+                                                <option value="@item">@item</option>
+                                            }
+                                        </InputSelect>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success w-100" data-bs-dismiss="modal">Save</button>
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+@code{
+    [Parameter]
+    public int Id { get; set; }
+    private string ResponseMessageClass { get; set; } = string.Empty;
+    private string ResponseMessage { get; set;} = string.Empty; 
+    RestrictedArea _restrictedArea = new RestrictedArea();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _restrictedArea = await AreaService.GetByID(Id);
+        StateHasChanged();
+    }
+
+    private async Task Save()
+    {
+        try
+        {
+            await AreaService.Update(_restrictedArea);
+            ResponseMessageClass = "my-3 alert alert-success";
+            ResponseMessage = $"{_restrictedArea.Name} Updated Successfully";
+        }
+        catch (Exception ex)
+        {
+            ResponseMessage = ex.Message;
+            ResponseMessageClass = "my-3 alert alert-danger";
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+}

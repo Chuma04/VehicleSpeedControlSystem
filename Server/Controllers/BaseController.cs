@@ -16,7 +16,7 @@ public class BaseController<T> : ControllerBase where T : BaseEntity
     public virtual ActionResult<T> Get(int Id)
     {
         var t = _context.Set<T>().FirstOrDefault(x => x.Id == Id);
-        return t is null ? BadRequest($"There is no  with Id = {Id}") : Ok(t);
+        return t is null ? BadRequest("Oops! The area you are looking for was not found in the database!") : Ok(t);
     }
 
     [HttpPost]
@@ -40,10 +40,10 @@ public class BaseController<T> : ControllerBase where T : BaseEntity
     public virtual ActionResult Delete(int Id)
     {
         var t = _context.Set<T>().FirstOrDefault(x=>x.Id==Id);
-        if (t is null) return BadRequest($"No Area with {Id}");
+        if (t is null) return BadRequest($"Area was not found");
         _context.Set<T>().Remove(t);
         _context.SaveChanges();
-        return Ok("Area deleted");
+        return Ok("Area deleted successfully");
             
     }
         
